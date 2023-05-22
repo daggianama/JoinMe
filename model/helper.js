@@ -1,6 +1,7 @@
 require("dotenv").config();
 const mysql = require("mysql");
 
+// values parameter has been added to allow for prepared statements (see https://www.npmjs.com/package/mysql#preparing-queries)
 module.exports = async function db(query, values) {
   const results = {
     data: [],
