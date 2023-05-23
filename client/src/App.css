@@ -1,9 +1,22 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+.App {
   text-align: center;
+  background-color: #ffffff;
+  color: #434649;
+  text-align: center;
+  font-weight: 300;
 }
+
+.App > div{
+  padding: 2px;
+  width: 70vw;
+  margin-top: 4rem;
+}
+
+nav {
+  background-color: rgba(0, 0, 0, 0.785);
+  padding-top: 4rem;
+}
+
 .event-card {
   display: flex;
   flex-direction: column;
@@ -15,3 +28,21 @@
   border-radius: 8px;
   background-color: #f5f5f5;
 }
+
+form {
+  display: flex;
+}
+
+ul{
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+li a{
+  color: white;
+}
+/* 
+li:visited {
+  color: white ;
+} */
