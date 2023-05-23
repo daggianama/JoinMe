@@ -42,7 +42,7 @@ function App() {
             <Link to="/user">My Events</Link>
             </li>
             <li>
-            <Link to="/user/addevent">Add New Event</Link>
+            <Link to="/user/addevent">Add Event</Link>
           </li>
         </ul>
       </nav>

@@ -18,7 +18,7 @@ export default function UserPage() {
 
   return (
     <div>
-      <h2>Hello User</h2>
+      <h2></h2>
       <div>
         <Outlet />
       </div>
