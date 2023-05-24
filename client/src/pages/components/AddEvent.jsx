@@ -4,14 +4,15 @@ import PlacesAutocomplete, {
   getLatLng,
 } from 'react-places-autocomplete';
 
-export default function AddEvent({ addMarkerCb, place}) {
+export default function AddEvent() {
 	const [newEvent, setNewEvent] = useState({
 		eventTitle: "",
 		eventLocation: "",
 		eventDate: "",
-		eventStartTime: "",
+    eventStartTime: "",
+    latitude: null,
+    longitude: null,
 	});
-	const [autocomplete, setAutocomplete] = useState(null);
 
   useEffect(() => {
     if ("geolocation" in navigator) {
@@ -47,22 +48,29 @@ export default function AddEvent({ addMarkerCb, place}) {
     }));
   };
 
-  const handlePlaceSelect = (address) => {
+  const handlePlaceSelect = async (address) => {
+    try {
+    const results = await geocodeByAddress(address);
+    const latLng = await getLatLng(results[0]);
     setNewEvent((state) => ({
       ...state,
       eventLocation: address,
+      latitude: latLng.lat,
+      longitude: latLng.lng,
     }));
+    } catch (error) {
+    console.error("Error retrieving place details:", error);
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await addMarkerCb(newEvent.eventLocation);
-    console.log(place);
-    setNewEvent((state) => ({
-      ...state,
-      eventLocation: place,
-    }));
-    console.log(newEvent);
+    // await addMarkerCb(newEvent.eventLocation);
+    // console.log(place);
+    // setNewEvent((state) => ({
+    //   ...state,
+    //   eventLocation: place,
+    // }));
     try {
       const response = await fetch("/api/events", {
         method: "POST",
@@ -76,12 +84,14 @@ export default function AddEvent({ addMarkerCb, place}) {
     } catch (error) {
       console.error(error);
     }
-
+    console.log(newEvent);
     setNewEvent({
       eventTitle: "",
       eventLocation: "",
       eventDate: "",
       eventStartTime: "",
+      latitude: null,
+      longitude: null,
     });
   };
 
