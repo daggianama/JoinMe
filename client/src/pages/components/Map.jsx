@@ -11,9 +11,10 @@ import "leaflet/dist/leaflet.css";
 import { useEffect, useState } from "react";
 const L = window.L;
 
-export default function Map() {
+export default function Map(){
+    const [userEvents, setUserEvents] = useState([]);
 	const [center, setCenter] = useState([41.4091528, 2.1924869]);
-    const [places, setPlaces] = useState([]);
+    // const [places, setPlaces] = useState([]);
     
         // By default Leaflet only comes with blue markers. We want green too!
     // https://github.com/pointhi/leaflet-color-markers
@@ -27,7 +28,10 @@ export default function Map() {
     });
 
 
-	useEffect(() => {
+    useEffect(() => {
+        // // Get the user's current location
+        // setCenter(props.home);
+        
 		if ("geolocation" in navigator) {
 			navigator.geolocation.getCurrentPosition(
 				(position) => {
@@ -43,8 +47,22 @@ export default function Map() {
 					);
 				}
 			);
-		}
-	}, []);
+        }
+        loadUser();
+    }, []);
+
+
+    useEffect(() => {
+        
+    }, []);
+
+    async function loadUser() {
+        const res = await fetch(`/api/events`);
+        const data = await res.json();
+        data.map(event => event.eventDate = event.eventDate.split('T')[0]);
+        setUserEvents(data);
+        console.log(data);
+    }
 
 
 	return (
@@ -66,7 +84,7 @@ export default function Map() {
 						</Popup>
                     </Marker>
                     {/* {
-                        props.places.map(p => (
+                        places.map(p => (
                          <Marker key={p.input_address} position={p.latLng}>
                         <Popup>
                             { breakAddr( p.formatted_address ) }

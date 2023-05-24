@@ -1,18 +1,20 @@
 
-import "leaflet/dist/leaflet.css";
+
 import "./Home.css";
 import { useEffect, useState } from "react";
 // import AddressForm from '../components/AddressForm';
-// import MarkerTable from '../components/MarkerTable';
+import MarkerTable from './components/MarkerTable';
 import Map from './components/Map';
 import { getHome } from '../helpers/geoLocation';
 import AddEvent from "./components/AddEvent";
 import { geocode } from '../helpers/geo-opencage';
 
 
+
 export default function Home() {
 	const [home, setHome] = useState(null);  // center of map
-	const [places, setPlaces] = useState([]);
+	const [place, setPlace] = useState("");
+
 
     // Set "home" when the app loads
     useEffect(() => {
@@ -37,7 +39,8 @@ export default function Home() {
                     formatted_address: d.formatted_address
                 };
                 // Add it to 'places' state
-                setPlaces(places => [...places, newPlace]);
+				setPlace(newPlace.formatted_address);
+
             } else {
                 console.log('addMarkerForAddress(): no results found');
             }
@@ -46,11 +49,13 @@ export default function Home() {
         }
     }
 	
+	console.log(home);
+	console.log(place);
 
 	return (
 		<div>
-			<AddEvent addMarkerCb={addr => addMarkerForAddress(addr)} />
-			<Map places={places} home={home} />
+			<AddEvent addMarkerCb={addr => addMarkerForAddress(addr)} place={place} />
+			<Map home={home} />
 			
 		</div>
 	);

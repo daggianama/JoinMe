@@ -1,4 +1,5 @@
 import opencage from 'opencage-api-client';
+import AddEvent from '../pages/components/AddEvent';
 
 
 const OCD_API_KEY = "777b5226b17a4710b1bff83a3b0dfdf7"; 

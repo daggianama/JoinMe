@@ -39,19 +39,20 @@ nav {
   background-color: #f5f5f5;
 }
 
-form {
+/* form {
   display: flex;
   flex-wrap: wrap;
 }
+*/
 
-ul{
+nav ul{
   list-style: none;
   display: flex;
   gap: 1rem;
   justify-content: space-around;
 }
 
-li a{
+nav li a{
   color: white;
-}
+} 
 

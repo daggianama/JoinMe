@@ -1,4 +1,4 @@
-import { useState, useEffect} from 'react'
+import { useState} from 'react'
 import './App.css'
 import { Route, Routes, Link } from 'react-router-dom';
 import Home from './pages/Home';
@@ -7,7 +7,7 @@ import UserPage from './pages/UserPage';
 // import Friends from './pages/Friends';
 // import UserEvents from './pages/UserEvents';
 import AddEvent from './pages/components/AddEvent';
-
+import 'tailwindcss/tailwind.css';
 
 function App() {
   const [selectAddEvent, setSelectAddEvent] = useState(false);
