@@ -2,61 +2,65 @@
 
 import "./Home.css";
 import { useEffect, useState } from "react";
-// import AddressForm from '../components/AddressForm';
+
 import MarkerTable from './components/MarkerTable';
 import Map from './components/Map';
-import { getHome } from '../helpers/geoLocation';
 import AddEvent from "./components/AddEvent";
-import { geocode } from '../helpers/geo-opencage';
-
 
 
 export default function Home() {
-	const [home, setHome] = useState(null);  // center of map
-	const [place, setPlace] = useState("");
+    const [userEvents, setUserEvents] = useState([]);
 
-
-    // Set "home" when the app loads
     useEffect(() => {
-        getAndSetHome();
+        loadUser();
     }, []);
 
-    async function getAndSetHome() {
-        let latLng = await getHome();  // returns [lat, lng]
-        setHome(latLng);
+    async function loadUser() {
+        const res = await fetch(`/api/events`);
+        const data = await res.json();
+        data.map(event => event.eventDate = event.eventDate.split('T')[0]);
+        setUserEvents(data);
     }
 
-	async function addMarkerForAddress(addr) {
-        // Send a request to OpenCage to geocode 'addr'
-        let myresponse = await geocode(addr);
-        if (myresponse.ok) {
-            if (myresponse.data.latLng) {
-                // Create new 'place' obj
-                let d = myresponse.data;
-                let newPlace = { 
-                    latLng: d.latLng,
-                    input_address: addr,
-                    formatted_address: d.formatted_address
-                };
-                // Add it to 'places' state
-				setPlace(newPlace.formatted_address);
+    // Set "home" when the app loads
+    // useEffect(() => {
+    //     // getAndSetHome();
+    // }, []);
 
-            } else {
-                console.log('addMarkerForAddress(): no results found');
-            }
-        } else {
-            console.log('addMarkerForAddress(): response.error:', myresponse.error);
-        }
-    }
+    // async function getAndSetHome() {
+    //     let latLng = await getHome();  // returns [lat, lng]
+    //     setHome(latLng);
+    // }
+
+	// async function addMarkerForAddress(addr) {
+    //     // Send a request to OpenCage to geocode 'addr'
+    //     let myresponse = await Geocode(addr);
+    //     if (myresponse.ok) {
+    //         if (myresponse.data.latLng) {
+    //             // Create new 'place' obj
+    //             let d = myresponse.data;
+    //             let newPlace = { 
+    //                 latLng: d.latLng,
+    //                 input_address: addr,
+    //                 formatted_address: d.formatted_address
+    //             };
+    //             // Add it to 'places' state
+	// 			setPlace(newPlace.formatted_address);
+
+    //         } else {
+    //             console.log('addMarkerForAddress(): no results found');
+    //         }
+    //     } else {
+    //         console.log('addMarkerForAddress(): response.error:', myresponse.error);
+    //     }
+    // }
 	
-	console.log(home);
-	console.log(place);
 
 	return (
 		<div>
-			<AddEvent addMarkerCb={addr => addMarkerForAddress(addr)} place={place} />
-			<Map home={home} />
-			
+			<AddEvent />
+            <Map/>
+            <MarkerTable places={userEvents} />
 		</div>
 	);
 }
