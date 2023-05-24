@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect} from 'react'
 import './App.css'
 import { Route, Routes, Link } from 'react-router-dom';
 import Home from './pages/Home';
@@ -8,27 +8,12 @@ import UserPage from './pages/UserPage';
 // import UserEvents from './pages/UserEvents';
 import AddEvent from './pages/components/AddEvent';
 
+
 function App() {
-  const [events, setEvents] = useState([]);
+  const [selectAddEvent, setSelectAddEvent] = useState(false);
+ 
 
-
-  useEffect(() => {
-    getEvents();
-  }, []
-  );
-  
-  const getEvents = async () => {
-    try {
-      const response = await fetch('http://localhost:4000/api/events')
-      const data = await response.json()
-      setEvents(data);
-      console.log(data)
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-
+  const showAddEvent = () => setSelectAddEvent(prevState => !prevState);
 
   return (
     <>
@@ -42,21 +27,24 @@ function App() {
             <Link to="/user">My Events</Link>
             </li>
             <li>
-            <Link to="/user/addevent">Add Event</Link>
+            <Link onClick={showAddEvent}>Add Event</Link>
           </li>
         </ul>
-      </nav>
+        </nav>
+        <div className='add-event-pop' >
+          {selectAddEvent && <AddEvent />}
+          </div>
+        
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home/>} />
           <Route path="/user"  element={<UserPage />} >
             <Route path="user/calendar" element={<Calendar />} />
             {/* <Route path="User:id/friends" element={<Friends />} />
             <Route path="User:id/events" element={<UserEvents />} /> */}
           </Route>
-          <Route path="/user/addevent" element={<AddEvent />} />
+          <Route path="/user/addEvent" element={<AddEvent />} />
         </Routes>
-
-        
+     
     
       </div>
     </>
