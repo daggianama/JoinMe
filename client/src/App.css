@@ -1,22 +1,20 @@
-* {
-  margin: 0, auto;
-}
+
 
 .App {
-  text-align: center;
-  background-color: #ffffff;
   color: #434649;
   text-align: center;
   font-weight: 300;
-  min-width: 42rem;
+   min-width: 34rem;
    width: 100%;
- 
+   margin: 0 auto;
 }
 
 .App > div{
+  margin: 0 auto;
   padding: 2px;
   width: 70vw;
-  margin-top: 4rem;
+  margin-top: 3rem;
+  
 }
 
 .user-calendar {
@@ -26,8 +24,7 @@
 
 nav {
   background-color: rgba(0, 0, 0, 0.785);
-  padding: 2rem 8rem;
-  
+  padding: 1.5rem 8rem;
 }
 
 .event-card {
@@ -44,18 +41,17 @@ nav {
 
 form {
   display: flex;
+  flex-wrap: wrap;
 }
 
 ul{
   list-style: none;
   display: flex;
   gap: 1rem;
+  justify-content: space-around;
 }
 
 li a{
   color: white;
 }
-/* 
-li:visited {
-  color: white ;
-} */
+

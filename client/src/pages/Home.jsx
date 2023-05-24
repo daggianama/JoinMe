@@ -2,7 +2,7 @@ import {
 	MapContainer,
 	TileLayer,
 	Marker,
-	Circle,
+
 	Popup,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
@@ -11,19 +11,7 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
 	const [center, setCenter] = useState([41.4091528, 2.1924869]);
-	function circle() {
-		return (
-			<Circle
-				center={[51.508, -0.11]}
-				pathOptions={{
-					color: "red",
-					fillColor: "#f03",
-					fillOpacity: 0.5,
-				}}
-				radius={500}
-			/>
-		);
-	}
+
 
 	useEffect(() => {
 		if ("geolocation" in navigator) {
@@ -58,11 +46,8 @@ export default function Home() {
 						<Popup>
 							<h4>Hello User!</h4>
 							<p>Here we are</p>
-            </Popup>
-            {circle()}
+						</Popup>
 					</Marker>
-					
-
 				</MapContainer>
 			</div>
 			{/* <iframe width="700" height="400" src="https://opendata-ajuntament.barcelona.cat/data/es/dataset/culturailleure-cinemesteatresauditoris/resource/0f706441-b9d8-47c9-9e71-ced453810a72/view/6eb95987-fb1a-4b5a-ab81-f01f2ea0fc8a" frameBorder="0"></iframe> */}
