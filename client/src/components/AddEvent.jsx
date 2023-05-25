@@ -8,7 +8,7 @@ import "./AddEvent.css";
 
 export default function AddEvent({ updateEvents }) {
 	const [searchParams, setSearchParams] = useSearchParams();
-
+	const [selectedOption, setSelectedOption] = useState("");
 	const [newEvent, setNewEvent] = useState({
 		eventTitle: "",
 		eventLocation: searchParams.get("address") || "",
@@ -17,9 +17,8 @@ export default function AddEvent({ updateEvents }) {
 		eventEndTime: "",
 		latitude: searchParams.get("lat") || "",
 		longitude: searchParams.get("lng") || "",
+		category: "",
 	});
-
-	console.log(searchParams.get("address"));
 
 	useEffect(() => {
 		if ("geolocation" in navigator) {
@@ -47,6 +46,10 @@ export default function AddEvent({ updateEvents }) {
 		}));
 	}, [searchParams]);
 
+	const handleOptionChange = (option) => {
+		setSelectedOption(option);
+	};
+
 	const getSuggestionsByLocation = async (latitude, longitude) => {
 		const response = await fetch(
 			`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyCKera2QzXqnNwAKgCPcexnVFwwt_WIXu8`
@@ -61,6 +64,7 @@ export default function AddEvent({ updateEvents }) {
 		setNewEvent((state) => ({
 			...state,
 			[name]: value,
+			category: selectedOption,
 		}));
 	};
 
@@ -109,6 +113,7 @@ export default function AddEvent({ updateEvents }) {
 			eventEndTime: "",
 			latitude: null,
 			longitude: null,
+			category: null,
 		});
 		updateEvents();
 	};
@@ -175,7 +180,7 @@ export default function AddEvent({ updateEvents }) {
 					</PlacesAutocomplete>
 				</div>
 
-				<div className="input-title-date">
+				<div className="input-title-tag">
 					<label htmlFor="eventTitle">Title:</label>
 					<input
 						type="text"
@@ -185,7 +190,44 @@ export default function AddEvent({ updateEvents }) {
 						onChange={handleChange}
 						required
 					/>
+					<div className="tag-div">
+					<input
+						type="radio"
+						name="category"
+						value="nightlife"
+						checked={selectedOption === "nightlife"}
+						onChange={() => handleOptionChange("nightlife")}
+					/>
+					<label>Nightlife</label>
+					<input
+						type="radio"
+						name="category"
+						value="relax"
+						checked={selectedOption === "relax"}
+						onChange={() => handleOptionChange("relax")}
+					/>
+					<label>Relax</label>
+					<input
+						type="radio"
+						name="category"
+						value="sports"
+						checked={selectedOption === "sports"}
+						onChange={() => handleOptionChange("sports")}
+						/>
+					<label>Sports</label>
+					<input
+						type="radio"
+						name="category"
+						value="family"
+						checked={selectedOption === "family"}
+						onChange={() => handleOptionChange("family")}
+						/>
+						<label>Family</label>
+									
+					</div>
+				</div>
 
+				<div className="input-time">
 					<label htmlFor="eventDate">Date:</label>
 					<input
 						type="date"
@@ -195,9 +237,6 @@ export default function AddEvent({ updateEvents }) {
 						onChange={handleChange}
 						required
 					/>
-				</div>
-
-				<div className="input-time">
 					<label htmlFor="eventStartTime">Start:</label>
 					<input
 						type="time"

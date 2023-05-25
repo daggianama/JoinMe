@@ -49,11 +49,11 @@ router.get("/title", async (req, res) => {
 
 // POST a new event to the database
 router.post("/", async (req, res) => {
-	const { eventTitle, eventLocation, eventDate, eventStartTime, latitude, longitude } =
+	const { eventTitle, eventLocation, eventDate, eventStartTime, latitude, longitude, category } =
 		req.body;
 	try {
 		await db(
-			`INSERT INTO events (eventTitle, eventLocation, eventDate, eventStartTime, latitude, longitude ) VALUES ("${eventTitle}", "${eventLocation}", "${eventDate}", "${eventStartTime}", "${latitude}", ${longitude});`
+			`INSERT INTO events (eventTitle, eventLocation, eventDate, eventStartTime, latitude, longitude, category ) VALUES ("${eventTitle}", "${eventLocation}", "${eventDate}", "${eventStartTime}", ${latitude}, ${longitude}, "${category}");`
 		);
 		//here is not necesary to send back any data
 		res

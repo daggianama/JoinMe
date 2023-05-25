@@ -36,7 +36,7 @@ input {
     margin: 1px;
 }
 
-.input-title-date {
+.input-title-tag {
     display: flex;
     /* flex-wrap: wrap;
     min-width: 2rem;
@@ -45,9 +45,21 @@ input {
     gap: 1vw;
 }
 
-.input-title-date label {
+.input-title-tag label {
     width: 14%;
     margin: 1px;
+}
+
+.input-title-tag div {
+    width: 46%;
+    display: flex;
+    gap: 1px;
+}
+
+.input-title-tag div label {
+    width: 1%;
+    margin: 0;
+    padding: 0;
 }
 
 form input {
