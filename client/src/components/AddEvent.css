@@ -80,7 +80,7 @@ form input {
     margin: 1px;
 }
 
-button {
+.submit-button {
     all: unset;
     text-align: center;
     font-weight: 600;
@@ -94,8 +94,20 @@ button {
     
 }
 
-button:hover {
+.submit-button:hover {
     background-color: #e0e0e0c4;
     box-shadow: 0 9px 10px 2px #6b6b6b69;
 
+}
+
+.close-form {
+    all: unset;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.4rem 1rem;
+    cursor: pointer;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #292929;
 }

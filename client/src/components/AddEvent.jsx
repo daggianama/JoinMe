@@ -6,7 +6,7 @@ import PlacesAutocomplete, {
 import { useFetcher, useSearchParams } from "react-router-dom";
 import "./AddEvent.css";
 
-export default function AddEvent({ updateEvents }) {
+export default function AddEvent({ updateEvents, closeForm }) {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const [selectedOption, setSelectedOption] = useState("");
 	const [newEvent, setNewEvent] = useState({
@@ -118,9 +118,25 @@ export default function AddEvent({ updateEvents }) {
 		updateEvents();
 	};
 
+	const closeModal = () => {
+		setNewEvent({
+			eventTitle: "",
+			eventLocation: "",
+			eventDate: "",
+			eventStartTime: "",
+			eventEndTime: "",
+			latitude: null,
+			longitude: null,
+			category: null,
+		});
+		closeForm(false);
+	};
+
+
 	return (
 		<div className="add-event">
 			<form onSubmit={handleSubmit}>
+				<button className="close-form" onClick={closeModal}> X </button>
 				<div className="address-input">
 					<label htmlFor="eventLocation">Address:</label>
 					<PlacesAutocomplete
@@ -255,7 +271,7 @@ export default function AddEvent({ updateEvents }) {
 						onChange={handleChange}
 					/>
 				</div>
-				<button type="submit">Submit</button>
+				<button className="submit-button" type="submit">Submit</button>
 			</form>
 		</div>
 	);

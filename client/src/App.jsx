@@ -50,9 +50,9 @@ function App() {
 					<li>
 						<Link to="/user">My Events</Link>
 					</li>
-					<li>
+					{/* <li>
 						<Link onClick={handleAddEventClick}>Add Event</Link>
-					</li>
+					</li> */}
 				</ul>
 			</nav>
 			{/* <div className="add-event-div">
@@ -67,7 +67,7 @@ function App() {
 						<Home events={userEvents} updateEvents={loadUser} mapClick={setSelectAddEvent} />
 					}
 				>
-					<Route path="/addEvent" element={selectAddEvent && <AddEvent updateEvents={loadUser}/>} />
+					<Route path="/addEvent" element={selectAddEvent && <AddEvent updateEvents={loadUser} closeForm={setSelectAddEvent} />} />
 				</Route>
 				<Route
 					path="/user"
