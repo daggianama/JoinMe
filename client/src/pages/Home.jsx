@@ -1,10 +1,11 @@
 import "./Home.css";
 import { useEffect } from "react";
-import MarkerTable from "./components/MarkerTable";
-import Map from "./components/Map";
+import MarkerTable from "../components/MarkerTable";
+import Map from "../components/Map";
 import { Outlet } from "react-router-dom";
+import AddEvent from "../components/AddEvent";
 
-export default function Home({ events, updateEvents }) {
+export default function Home({ events, updateEvents, mapClick }) {
 	useEffect(() => {
 		updateEvents();
 	}, []);
@@ -50,11 +51,13 @@ export default function Home({ events, updateEvents }) {
 	// }
 
 	return (
-		<div>
-			<Map events={events} updateEvents={updateEvents} />
+        <div className="home-page">
+            <div className="map-view">
+			<Map events={events} updateEvents={updateEvents} mapClick={mapClick} />
+			</div>
 			{/* <MarkerTable places={events} /> */}
-			<div>
-				<Outlet />
+			<div className="addevent-view">
+			<Outlet />
 			</div>
 		</div>
 	);
