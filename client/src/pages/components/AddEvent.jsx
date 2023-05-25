@@ -4,7 +4,7 @@ import PlacesAutocomplete, {
   getLatLng,
 } from 'react-places-autocomplete';
 
-export default function AddEvent() {
+export default function AddEvent({updateEvents}) {
 	const [newEvent, setNewEvent] = useState({
 		eventTitle: "",
 		eventLocation: "",
@@ -93,6 +93,7 @@ export default function AddEvent() {
       latitude: null,
       longitude: null,
     });
+    updateEvents();
   };
 
   return (

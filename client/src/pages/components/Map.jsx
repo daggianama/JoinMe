@@ -6,14 +6,11 @@ import {
 } from "react-leaflet";
 import L from "leaflet";
 import { useEffect, useRef, useState } from "react";
-// const L = window.L;
 
-export default function Map() {
-	const [userEvents, setUserEvents] = useState([]);
-    const [center, setCenter] = useState([41.4091528, 2.1924869]);
-    const [markers, setMarkers] = useState([]);
-    const mapRef = useRef();
-
+export default function Map({ events, updateEvents }) {
+	const [center, setCenter] = useState([41.4091528, 2.1924869]);
+	const [markers, setMarkers] = useState([]);
+	const mapRef = useRef();
 
 	// By default Leaflet only comes with blue markers. We want green too!
 	// https://github.com/pointhi/leaflet-color-markers
@@ -30,8 +27,6 @@ export default function Map() {
 
 	useEffect(() => {
 		// // Get the user's current location
-		// setCenter(props.home);
-
 		if ("geolocation" in navigator) {
 			navigator.geolocation.getCurrentPosition(
 				(position) => {
@@ -47,45 +42,45 @@ export default function Map() {
 					);
 				}
 			);
-        }
-        if (mapRef.current) {
-            const map = mapRef.current.leafletElement;
-            map.on("click", handleMapClick);
-          }
-        loadUser();
-        console.log(markers);
+		}
+		// if (mapRef.current) {
+		//     const map = mapRef.current.leafletElement;
+		//     map.on("click", handleMapClick);
+		//   }
+		updateEvents();
+		console.log(markers);
 	}, [markers]);
 
-	async function loadUser() {
-		const res = await fetch(`/api/events`);
-		const data = await res.json();
-		data.map(
-			(event) => (event.eventDate = event.eventDate.split("T")[0])
+	function breakAddr(addr) {
+		let addrWithBrs = addr.replace(/, /g, "<br />");
+		return (
+			<span dangerouslySetInnerHTML={{ __html: addrWithBrs }}></span>
 		);
-		setUserEvents(data);
-    }
-    
-    const handleMapClick = (e) => {
-        console.log(e);
-        const { lat, lng } = e.latlng;
-        const newMarker = { lat, lng };
-        setMarkers((prevMarkers) => [...prevMarkers, newMarker]);
-        
-      };
+	}
+
+	const handlePopClick = () => {
+		console.log("click");
+	};
+
+	const handleMapClick = (e) => {
+		console.log(e);
+		const { lat, lng } = e.latlng;
+		const newMarker = { lat, lng };
+		setMarkers((prevMarkers) => [...prevMarkers, newMarker]);
+	};
 
 	return (
 		<div>
-			Home
 			<div className="map">
 				<MapContainer
 					className="MarkerMap"
 					center={center}
-					zoom={13}
+					zoom={14}
 					style={{ height: "400px", width: "100%" }} // you MUST specify map height, else it will be 0!
-                    eventHandlers={{
-                        click: handleMapClick,
-                      }}
-                    ref={mapRef}
+					eventHandlers={{
+						click: handleMapClick,
+					}}
+					ref={mapRef}
 				>
 					{/* Create the tile layer that shows the map */}
 					<TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
@@ -105,15 +100,15 @@ export default function Map() {
 							</Popup>
 						</Marker>
 					))}
-					{/* {
-                        places.map(p => (
-                         <Marker key={p.input_address} position={p.latLng}>
-                        <Popup>
-                            { breakAddr( p.formatted_address ) }
-                        </Popup>
-                    </Marker>
-                    ))
-                    } */}
+					{events.map((e) => (
+						<Marker key={e.id} position={[e.latitude, e.longitude]}>
+							<Popup key={e.id} onClick={() => handlePopClick(e.id)}>
+								<span className="eventName-pop">{e.eventTitle}</span>{" "}
+								<br />
+								{e.eventDate}
+							</Popup>
+						</Marker>
+					))}
 				</MapContainer>
 			</div>
 		</div>

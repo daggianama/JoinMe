@@ -3,24 +3,24 @@ import { useParams, Outlet } from "react-router-dom";
 import { Calendar, dayjsLocalizer } from "react-big-calendar";
 import dayjs from "dayjs";
 
-export default function UserCalendar() {
+export default function UserCalendar({events}) {
     // const { id } = useParams();
     const localizer = dayjsLocalizer(dayjs);
-    const [userEvents, setUserEvents] = useState([]);
+    // const [userEvents, setUserEvents] = useState([]);
 
-    useEffect(() => {
-        loadUser();
-    }, []);
+    // useEffect(() => {
+    //     loadUser();
+    // }, []);
 
-    async function loadUser() {
-        const res = await fetch(`/api/events`);
-        const data = await res.json();
-        data.map(event => event.eventDate = event.eventDate.split('T')[0]);
-        setUserEvents(data);
-        console.log(data);
-    }
+    // async function loadUser() {
+    //     const res = await fetch(`/api/events`);
+    //     const data = await res.json();
+    //     data.map(event => event.eventDate = event.eventDate.split('T')[0]);
+    //     setUserEvents(data);
+    //     console.log(data);
+    // }
   
-    const events = userEvents.map((event) => {
+    const eventsCalendar = events.map((event) => {
         return {
             id: event.id,
             title: event.eventTitle,
@@ -35,13 +35,12 @@ export default function UserCalendar() {
             <div>
                 <Calendar
                     localizer={localizer}
-                    events={events}
+                    events={eventsCalendar}
                     startAccessor="start"
                     endAccessor="end"
                     style={{ height: 500 }}
                 />
             </div>
-        
             <Outlet />
         </div>
     );

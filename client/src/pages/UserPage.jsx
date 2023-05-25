@@ -1,34 +1,18 @@
-import { useEffect, useState } from "react";
+
 import { Outlet } from "react-router-dom";
 import Calendar from "./components/Calendar";
 import UserEvents from "./components/UserEvents";
 
 
-export default function UserPage() {
-  // const [userEvents, setUserEvents] = useState([]);
-
-  // useEffect(() => {
-  //   loadEvents();
-  // }, []);
-
-  // async function loadEvents() {
-  //   const res = await fetch("/api/events");
-  //   const data = await res.json();
-  //   setUserEvents(data);
-  // }
-
+export default function UserPage({events, updateEvents}) {
 
   return (
     <div>
-      <h2></h2>
-      <Calendar />
-      <UserEvents />
+      <Calendar events={events} />
+      <UserEvents events={events} updateEvents={updateEvents} />
       <div>
         <Outlet />
       </div>
-
-      
-      
  
     </div>
   );
