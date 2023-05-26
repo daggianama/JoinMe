@@ -5,7 +5,7 @@ import UserEvents from "../components/UserEvents";
 
 
 
-export default function UserPage({events, updateEvents}) {
+export default function CalendarPage({events, updateEvents}) {
 
   return (
     <div>

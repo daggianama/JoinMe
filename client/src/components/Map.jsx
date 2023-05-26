@@ -8,12 +8,17 @@ import {
 import L from "leaflet";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import MapFilters from "./MapFilters";
 
 export default function UserMap({ events, updateEvents, mapClick }) {
 	const [center, setCenter] = useState([41.4091528, 2.1924869]);
 	const [markers, setMarkers] = useState([]);
 	const [selectedPosition, setSelectedPosition] = useState(["", ""]);
 	const [hoveredMarker, setHoveredMarker] = useState(null);
+	const [selectedDate, setSelectedDate] = useState(null);
+	const navigate = useNavigate();
+	const mapRef = useRef();
+	const markerRefs = useRef({});
 
 	const handleMarkerHover = (markerId) => {
 		setHoveredMarker(markerId);
@@ -27,10 +32,6 @@ export default function UserMap({ events, updateEvents, mapClick }) {
 			});
 		}
 	};
-
-	const navigate = useNavigate();
-	const mapRef = useRef();
-	const markerRefs = useRef({});
 
 	// By default Leaflet only comes with blue markers. We want green too!
 	// https://github.com/pointhi/leaflet-color-markers
@@ -75,9 +76,10 @@ export default function UserMap({ events, updateEvents, mapClick }) {
 			);
 		}
 		updateEvents();
-		console.log(markers);
-	}, [markers]);
+		// console.log(markers);
+	}, [selectedDate]);
 
+	//CREATE MARKERS FROM USER CLICK ON MAP
 	const OnClickMarkers = () => {
 		useMapEvents({
 			click(e) {
@@ -106,11 +108,10 @@ export default function UserMap({ events, updateEvents, mapClick }) {
 					})
 					.then(setSelectedPosition([e.latlng.lat, e.latlng.lng]))
 					.catch((error) => {
-						console.error("Error al obtener la dirección:", error);
+						console.error("Address not found", error);
 					});
 			},
 		});
-
 		// show an orange marker where the user just clicked
 		return selectedPosition ? (
 			<Marker
@@ -126,15 +127,44 @@ export default function UserMap({ events, updateEvents, mapClick }) {
 		) : null;
 	};
 
+	const handleEventDetails = (markerId) => {
+		console.log("click on marker: ", markerId);
+		// if (markerId === hoveredMarker) {
+		// 	navigate(`/event/${markerId}`);
+		// }
+	};
+
+
+	const handleFilterChange = (event) => {
+
+		setSelectedDate(event.target.value);
+		filterMarkersByDate(event.target.value); // Call the filter function to update the markers
+	};
+
+	const filterMarkersByDate = () => {
+		console.log(selectedDate);
+		if (!selectedDate) {
+			return true; // If there is no date selected, show all markers
+		}
+		// const selectedDateTime = selectedDate.setHours(0, 0, 0, 0); // Remove the time from the date
+		return selectedDate;
+	};
+
 	return (
 		<div>
+			<MapFilters
+				selectedDate={selectedDate}
+				filterChange={handleFilterChange}
+			/>
 			<div className="map">
 				<MapContainer
 					className="MarkerMap"
 					center={center}
 					zoom={14}
 					style={{
-						height: "55vh", width: "100 % " }} // you MUST specify map height, else it will be 0!
+						height: "55vh",
+						width: "100 % ",
+					}} // you MUST specify map height, else it will be 0!
 					eventHandlers={{
 						onClick: OnClickMarkers,
 					}}
@@ -175,14 +205,15 @@ export default function UserMap({ events, updateEvents, mapClick }) {
 					))}
 
 					{events.map((e) => (
+						e.eventDate === selectedDate && (
 						<Marker
 							key={e.id}
 							position={[e.latitude, e.longitude]}
 							eventHandlers={{
 								mouseover: () => handleMarkerHover(e.id),
 								mouseout: () => handleMarkerHover(null),
-								onClick: () => handleEventDetails(e.id)}
-							}
+								onClick: () => handleEventDetails(e.id),
+							}}
 							ref={(ref) => (markerRefs.current[e.id] = ref)}
 						>
 							<Popup key={e.id}>
@@ -190,7 +221,7 @@ export default function UserMap({ events, updateEvents, mapClick }) {
 								{e.eventStartTime}
 							</Popup>
 						</Marker>
-					))}
+					)))}
 				</MapContainer>
 			</div>
 		</div>

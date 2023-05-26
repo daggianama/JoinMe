@@ -271,7 +271,7 @@ export default function AddEvent({ updateEvents, closeForm }) {
 						onChange={handleChange}
 					/>
 				</div>
-				<button className="submit-button" type="submit">Submit</button>
+				<button className="submit-button" type="submit">Save Event</button>
 			</form>
 		</div>
 	);

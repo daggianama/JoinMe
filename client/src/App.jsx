@@ -9,7 +9,7 @@ import {
 	useNavigate,
 } from "react-router-dom";
 import Home from "./pages/Home";
-import UserPage from "./pages/UserPage";
+import CalendarPage from "./pages/ClendarPage";
 // import Friends from './pages/Friends';
 // import UserEvents from './pages/UserEvents';
 import AddEvent from "./components/AddEvent";
@@ -48,7 +48,7 @@ function App() {
 						<Link to="/">Home</Link>
 					</li>
 					<li>
-						<Link to="/user">My Events</Link>
+						<Link to="/calendar">Calendar</Link>
 					</li>
 					{/* <li>
 						<Link onClick={handleAddEventClick}>Add Event</Link>
@@ -70,9 +70,9 @@ function App() {
 					<Route path="/addEvent" element={selectAddEvent && <AddEvent updateEvents={loadUser} closeForm={setSelectAddEvent} />} />
 				</Route>
 				<Route
-					path="/user"
+					path="/calendar"
 					element={
-						<UserPage events={userEvents} updateEvents={loadUser} />
+						<CalendarPage events={userEvents} updateEvents={loadUser} />
 					}
 				>
 			
