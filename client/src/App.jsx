@@ -4,21 +4,14 @@ import {
 	Route,
 	Routes,
 	Link,
-	Outlet,
-	useLocation,
-	useNavigate,
 } from "react-router-dom";
 import Home from "./pages/Home";
-import CalendarPage from "./pages/ClendarPage";
-// import Friends from './pages/Friends';
-// import UserEvents from './pages/UserEvents';
+import CalendarPage from "./pages/CalendarPage";
 import AddEvent from "./components/AddEvent";
 import "tailwindcss/tailwind.css";
 
 function App() {
 	const [selectAddEvent, setSelectAddEvent] = useState(false);
-	const location = useLocation();
-	const navigate = useNavigate();
 	const [userEvents, setUserEvents] = useState([]);
 
 	useEffect(() => {
@@ -34,11 +27,6 @@ function App() {
 		setUserEvents(data);
 		console.log(data);
 	}
-
-	const handleAddEventClick = () => {
-		setSelectAddEvent((prevState) => !prevState);
-		// navigate(`${location.pathname}/addEvent`, { replace: true });
-	};
 
 	return (
 		<div className="App">

@@ -48,6 +48,7 @@ export default function AddEvent({ updateEvents, closeForm }) {
 
 	const handleOptionChange = (option) => {
 		setSelectedOption(option);
+		console.log(option);
 	};
 
 	const getSuggestionsByLocation = async (latitude, longitude) => {
@@ -85,12 +86,6 @@ export default function AddEvent({ updateEvents, closeForm }) {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		// await addMarkerCb(newEvent.eventLocation);
-		// console.log(place);
-		// setNewEvent((state) => ({
-		//   ...state,
-		//   eventLocation: place,
-		// }));
 		try {
 			const response = await fetch("/api/events", {
 				method: "POST",
@@ -132,11 +127,13 @@ export default function AddEvent({ updateEvents, closeForm }) {
 		closeForm(false);
 	};
 
-
 	return (
 		<div className="add-event">
 			<form onSubmit={handleSubmit}>
-				<button className="close-form" onClick={closeModal}> X </button>
+				<button className="close-form" onClick={closeModal}>
+					{" "}
+					X{" "}
+				</button>
 				<div className="address-input">
 					<label htmlFor="eventLocation">Address:</label>
 					<PlacesAutocomplete
@@ -206,41 +203,23 @@ export default function AddEvent({ updateEvents, closeForm }) {
 						onChange={handleChange}
 						required
 					/>
-					<div className="tag-div">
-					<input
-						type="radio"
-						name="category"
-						value="nightlife"
-						checked={selectedOption === "nightlife"}
-						onChange={() => handleOptionChange("nightlife")}
-					/>
-					<label>Nightlife</label>
-					<input
-						type="radio"
-						name="category"
-						value="relax"
-						checked={selectedOption === "relax"}
-						onChange={() => handleOptionChange("relax")}
-					/>
-					<label>Relax</label>
-					<input
-						type="radio"
-						name="category"
-						value="sports"
-						checked={selectedOption === "sports"}
-						onChange={() => handleOptionChange("sports")}
-						/>
-					<label>Sports</label>
-					<input
-						type="radio"
-						name="category"
-						value="family"
-						checked={selectedOption === "family"}
-						onChange={() => handleOptionChange("family")}
-						/>
-						<label>Family</label>
-									
-					</div>
+
+						<div className="event-category">
+							<label htmlFor="eventCategory" />
+							<select
+								value={selectedOption}
+								onChange={(e) => handleOptionChange(e.target.value)}
+							>
+								<option value="">Category</option>
+								<option value="relax">Relax</option>
+								<option value="family">Family</option>
+								<option value="sports">Sports</option>
+								<option value="nightlife">Nightlife</option>
+								<option value="educative">Educative</option>
+								<option value="work">Work</option>
+							</select>
+						</div>
+					
 				</div>
 
 				<div className="input-time">
@@ -271,7 +250,9 @@ export default function AddEvent({ updateEvents, closeForm }) {
 						onChange={handleChange}
 					/>
 				</div>
-				<button className="submit-button" type="submit">Save Event</button>
+				<button className="submit-button" type="submit">
+					Save{" "}
+				</button>
 			</form>
 		</div>
 	);

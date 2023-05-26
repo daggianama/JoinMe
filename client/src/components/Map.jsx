@@ -77,7 +77,7 @@ export default function UserMap({ events, updateEvents, mapClick }) {
 			);
 		}
 		updateEvents();
-	}, []);
+	}, [markers]);
 	// }, [selectedDate]);
 
 	//CREATE MARKERS FROM USER CLICK ON MAP
@@ -232,3 +232,5 @@ export default function UserMap({ events, updateEvents, mapClick }) {
 		</div>
 	);
 }
+
+
