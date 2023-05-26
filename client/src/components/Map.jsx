@@ -9,6 +9,7 @@ import L from "leaflet";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MapFilters from "./MapFilters";
+import UserEvents from "./UserEvents";
 
 export default function UserMap({ events, updateEvents, mapClick }) {
 	const [center, setCenter] = useState([41.4091528, 2.1924869]);
@@ -16,13 +17,13 @@ export default function UserMap({ events, updateEvents, mapClick }) {
 	const [selectedPosition, setSelectedPosition] = useState(["", ""]);
 	const [hoveredMarker, setHoveredMarker] = useState(null);
 	const [selectedDate, setSelectedDate] = useState(null);
+	const [selectedEvent, setSelectedEvent] = useState(null);
 	const navigate = useNavigate();
 	const mapRef = useRef();
 	const markerRefs = useRef({});
 
 	const handleMarkerHover = (markerId) => {
 		setHoveredMarker(markerId);
-		console.log("Hovered marker: ", markerId);
 		if (markerId) {
 			markerRefs.current[markerId]?.openPopup();
 		} else {
@@ -76,8 +77,8 @@ export default function UserMap({ events, updateEvents, mapClick }) {
 			);
 		}
 		updateEvents();
-		// console.log(markers);
-	}, [selectedDate]);
+	}, []);
+	// }, [selectedDate]);
 
 	//CREATE MARKERS FROM USER CLICK ON MAP
 	const OnClickMarkers = () => {
@@ -127,22 +128,24 @@ export default function UserMap({ events, updateEvents, mapClick }) {
 		) : null;
 	};
 
-	const handleEventDetails = (markerId) => {
-		console.log("click on marker: ", markerId);
-		// if (markerId === hoveredMarker) {
-		// 	navigate(`/event/${markerId}`);
-		// }
+	const handleEventDetails = (e) => {
+		// showSelectedDetails(e); // Call the function to show the details
+		console.log("click on marker: ", e);
+		setSelectedEvent(e);
+	
+		if (e) {
+			return selectedEvent
+		}
+
 	};
 
 
 	const handleFilterChange = (event) => {
-
 		setSelectedDate(event.target.value);
 		filterMarkersByDate(event.target.value); // Call the filter function to update the markers
 	};
 
 	const filterMarkersByDate = () => {
-		console.log(selectedDate);
 		if (!selectedDate) {
 			return true; // If there is no date selected, show all markers
 		}
@@ -205,14 +208,14 @@ export default function UserMap({ events, updateEvents, mapClick }) {
 					))}
 
 					{events.map((e) => (
-						e.eventDate === selectedDate && (
+						!selectedDate || e.eventDate === selectedDate ? (
 						<Marker
 							key={e.id}
 							position={[e.latitude, e.longitude]}
 							eventHandlers={{
 								mouseover: () => handleMarkerHover(e.id),
 								mouseout: () => handleMarkerHover(null),
-								onClick: () => handleEventDetails(e.id),
+								click: () => handleEventDetails(e.id),
 							}}
 							ref={(ref) => (markerRefs.current[e.id] = ref)}
 						>
@@ -221,9 +224,11 @@ export default function UserMap({ events, updateEvents, mapClick }) {
 								{e.eventStartTime}
 							</Popup>
 						</Marker>
-					)))}
+						) : null
+					))}
 				</MapContainer>
 			</div>
+			<UserEvents events={events} updateEvents={updateEvents} selectedEvent={selectedEvent}/>
 		</div>
 	);
 }

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 
-export default function UserEvents({events, updateEvents}) {
+export default function UserEvents({events, updateEvents, selectedEvent}) {
 	// const [events, setEvents] = useState([]);
 
 	useEffect(() => {
@@ -41,20 +41,22 @@ export default function UserEvents({events, updateEvents}) {
 	return (
 		<div>
 			<h3>Your Events</h3>
-			{events.map((event, i) => (
+			{events.map((e, i) => (
+				!selectedEvent || e.id === selectedEvent && (
 				<div key={i} className="event-card">
-					<p>{event.eventTitle}</p>
-					<p>{event.eventLocation}</p>
-					<p>{event.eventDate}</p>
-					<p>{event.eventStartTime}</p>
+					<p>{e.eventTitle}</p>
+					<p>{e.eventLocation}</p>
+					<p>{e.eventDate}</p>
+					<p>{e.eventStartTime}</p>
 					<button
 						className="delete"
 						type="button"
-						onClick={() => handleDelete(event.id)}
+						onClick={() => handleDelete(e.id)}
 					>
 						<i className="fa-solid fa-trash-can"></i>{" "}
 					</button>
-				</div>
+					</div>
+				)
 			))}
 			<Outlet />
 		</div>

@@ -1,0 +1,19 @@
+
+
+.filter-markers {
+    display: flex;
+    align-items: center;
+    padding-bottom: 1rem;
+    gap: 2rem;
+}
+
+
+.filter-markers .date, .users {
+    display: flex;
+    gap: .5vw;
+}
+
+label {
+    width: 100%;
+
+}
