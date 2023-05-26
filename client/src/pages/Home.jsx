@@ -1,6 +1,5 @@
 import "./Home.css";
 import { useEffect } from "react";
-import MarkerTable from "../components/MarkerTable";
 import Map from "../components/Map";
 import { Outlet } from "react-router-dom";
 import AddEvent from "../components/AddEvent";
