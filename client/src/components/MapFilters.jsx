@@ -1,14 +1,11 @@
 import "./MapFilters.css";
 import { useState, useEffect } from "react";
 
-export default function MapFilters({ filterChange, selectedDate }) {
-    const [friends, setFriends] = useState([]);
+export default function MapFilters({ filterChange, selectedDate, friends }) {
+    
     
     useEffect(() => {
-        fetch("/api/friends")
-            .then((res) => res.json())
-            .then((data) => setFriends(data))
-            .catch((error) => console.error(error));
+        console.log(friends);
     }, []);
 
 	const defaultValue = (e) => {

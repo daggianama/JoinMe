@@ -6,17 +6,23 @@ const db = require("../model/helper");
 
 
 /* GET users freinds listing. */
-router.get("/user/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
     const { id } = req.params;
     try {
+
         const results = await db(
-            `SELECT * FROM friends WHERE user_id = ${id};`
+            //select all friends of user and send back the users freinds first name & last name
+            `SELECT * FROM users WHERE id IN (SELECT user2_id FROM friends WHERE user1_id = ${id});`
         );
-        res.send(results.data);
+
+        res.send(results.data.map((item) => { 
+            return { firstName: item.firstName, lastName: item.lastName };
+            }));
     } catch (err) {
         res.status(500).send({ error: err.message });
     }
 });
+
 
 
 

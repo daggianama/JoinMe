@@ -9,6 +9,7 @@ import "./AddEvent.css";
 export default function AddEvent({ updateEvents, closeForm }) {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const [selectedOption, setSelectedOption] = useState("");
+	const userId = searchParams.get("id")
 	const [newEvent, setNewEvent] = useState({
 		eventTitle: "",
 		eventLocation: searchParams.get("address") || "",
@@ -86,8 +87,9 @@ export default function AddEvent({ updateEvents, closeForm }) {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		
 		try {
-			const response = await fetch("/api/events", {
+			const response = await fetch(`/api/events/${userId}`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -204,22 +206,21 @@ export default function AddEvent({ updateEvents, closeForm }) {
 						required
 					/>
 
-						<div className="event-category">
-							<label htmlFor="eventCategory" />
-							<select
-								value={selectedOption}
-								onChange={(e) => handleOptionChange(e.target.value)}
-							>
-								<option value="">Category</option>
-								<option value="relax">Relax</option>
-								<option value="family">Family</option>
-								<option value="sports">Sports</option>
-								<option value="nightlife">Nightlife</option>
-								<option value="educative">Educative</option>
-								<option value="work">Work</option>
-							</select>
-						</div>
-					
+					<div className="event-category">
+						<label htmlFor="eventCategory" />
+						<select
+							value={selectedOption}
+							onChange={(e) => handleOptionChange(e.target.value)}
+						>
+							<option value="">Category</option>
+							<option value="relax">Relax</option>
+							<option value="family">Family</option>
+							<option value="sports">Sports</option>
+							<option value="nightlife">Nightlife</option>
+							<option value="educative">Educative</option>
+							<option value="work">Work</option>
+						</select>
+					</div>
 				</div>
 
 				<div className="input-time">

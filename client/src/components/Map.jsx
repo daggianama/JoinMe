@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import MapFilters from "./MapFilters";
 import UserEvents from "./UserEvents";
 
-export default function UserMap({ events, updateEvents, mapClick }) {
+export default function Map({ events, updateEvents, mapClick, userId, friends }) {
 	const [center, setCenter] = useState([41.4091528, 2.1924869]);
 	const [markers, setMarkers] = useState([]);
 	const [selectedPosition, setSelectedPosition] = useState(["", ""]);
@@ -21,6 +21,8 @@ export default function UserMap({ events, updateEvents, mapClick }) {
 	const navigate = useNavigate();
 	const mapRef = useRef();
 	const markerRefs = useRef({});
+
+	console.log("userId", userId);
 
 	const handleMarkerHover = (markerId) => {
 		setHoveredMarker(markerId);
@@ -84,11 +86,6 @@ export default function UserMap({ events, updateEvents, mapClick }) {
 	const OnClickMarkers = () => {
 		useMapEvents({
 			click(e) {
-				// navigate("/addEvent?lat=" + e.latlng.lat + "&lng=" + e.latlng.lng);
-				//     setSelectedPosition([
-				//         e.latlng.lat,
-				//         e.latlng.lng
-				//     ]);
 				const { lat, lng } = e.latlng;
 
 				fetch(
@@ -98,7 +95,7 @@ export default function UserMap({ events, updateEvents, mapClick }) {
 					.then((data) => {
 						const address = data.display_name;
 						navigate(
-							"/addEvent?lat=" +
+							`/${userId}/addEvent?lat=` +
 								e.latlng.lat +
 								"&lng=" +
 								e.latlng.lng +
@@ -158,6 +155,8 @@ export default function UserMap({ events, updateEvents, mapClick }) {
 			<MapFilters
 				selectedDate={selectedDate}
 				filterChange={handleFilterChange}
+				userId={userId}
+				friends={friends}
 			/>
 			<div className="map">
 				<MapContainer

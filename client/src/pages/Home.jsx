@@ -1,22 +1,28 @@
 import "./Home.css";
 import { useEffect } from "react";
 import Map from "../components/Map";
-import { Outlet } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 
-export default function Home({ events, updateEvents, mapClick }) {
-	useEffect(() => {
-		updateEvents();
-	}, []);
+export default function Home({ events, updateEvents, mapClick, friends }) {
+	const params = useParams();
+	const userId = params.userId;
 
+	useEffect(() => {}, [params.userId]);
 
 	return (
-        <div className="home-page">
-            <div className="map-view">
-			<Map events={events} updateEvents={updateEvents} mapClick={mapClick} />
+		<div className="home-page">
+			<div className="map-view">
+				<Map
+					events={events}
+					updateEvents={updateEvents}
+					mapClick={mapClick}
+					userId={userId}
+					friends={friends}
+				/>
 			</div>
 			{/* <MarkerTable places={events} /> */}
 			<div className="addevent-view">
-			<Outlet />
+				<Outlet />
 			</div>
 		</div>
 	);
