@@ -3,13 +3,16 @@ import PlacesAutocomplete, {
 	geocodeByAddress,
 	getLatLng,
 } from "react-places-autocomplete";
-import { useFetcher, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import "./AddEvent.css";
+import { handleMouseDown, handleMouseMove, handleMouseUp } from "../utils/interactions";
+
 
 export default function AddEvent({ updateEvents, closeForm }) {
-	const [searchParams, setSearchParams] = useSearchParams();
+	const [searchParams] = useSearchParams();
 	const [selectedOption, setSelectedOption] = useState("");
-	const userId = searchParams.get("id")
+	const userId = searchParams.get("id");
+	const [isPublic, setIsPublic] = useState(false);
 	const [newEvent, setNewEvent] = useState({
 		eventTitle: "",
 		eventLocation: searchParams.get("address") || "",
@@ -20,6 +23,12 @@ export default function AddEvent({ updateEvents, closeForm }) {
 		longitude: searchParams.get("lng") || "",
 		category: "",
 	});
+
+	// STATE FOR DRAGGABLE FORM
+	const [position, setPosition] = useState({ x: 900, y: 150 });
+	const [isDragging, setIsDragging] = useState(false);
+	const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+
 
 	useEffect(() => {
 		if ("geolocation" in navigator) {
@@ -61,6 +70,10 @@ export default function AddEvent({ updateEvents, closeForm }) {
 		// Aquí puedes hacer lo que necesites con las sugerencias obtenidas
 	};
 
+	const handleChangePublic = (event) => {
+		setIsPublic(event.target.checked);
+	};
+
 	const handleChange = (event) => {
 		const { value, name } = event.target;
 		setNewEvent((state) => ({
@@ -87,7 +100,7 @@ export default function AddEvent({ updateEvents, closeForm }) {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		
+
 		try {
 			const response = await fetch(`/api/events/${userId}`, {
 				method: "POST",
@@ -101,6 +114,20 @@ export default function AddEvent({ updateEvents, closeForm }) {
 		} catch (error) {
 			console.error(error);
 		}
+		try {
+			const response = await fetch(`/api/parti/${userId}/public`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(isPublic),
+			});
+			const data = await response.json();
+			console.log(data);
+		} catch (error) {
+			console.error(error);
+		}
+
 		console.log(newEvent);
 		setNewEvent({
 			eventTitle: "",
@@ -130,13 +157,26 @@ export default function AddEvent({ updateEvents, closeForm }) {
 	};
 
 	return (
-		<div className="add-event">
-			<form onSubmit={handleSubmit}>
+		<div className="add-event"
+		>
+			<form onSubmit={handleSubmit}
+			style={{
+				position: "absolute",
+				left: position.x,
+				top: position.y,
+				cursor: isDragging ? "grabbing" : "grab",}}
+				onMouseDown={(event) =>
+					handleMouseDown(event, setPosition, setIsDragging, setDragOffset, position)}
+				onMouseMove={(event) =>
+					handleMouseMove(event, isDragging, setPosition, dragOffset)
+				}
+				onMouseUp={() => handleMouseUp(setIsDragging)}>
 				<button className="close-form" onClick={closeModal}>
 					{" "}
 					X{" "}
 				</button>
-				<div className="address-input">
+				<h4>ADD EVENT</h4>
+				<div className="address">
 					<label htmlFor="eventLocation">Address:</label>
 					<PlacesAutocomplete
 						value={newEvent.eventLocation}
@@ -195,7 +235,7 @@ export default function AddEvent({ updateEvents, closeForm }) {
 					</PlacesAutocomplete>
 				</div>
 
-				<div className="input-title-tag">
+				<div className="title">
 					<label htmlFor="eventTitle">Title:</label>
 					<input
 						type="text"
@@ -205,21 +245,41 @@ export default function AddEvent({ updateEvents, closeForm }) {
 						onChange={handleChange}
 						required
 					/>
+				</div>
 
-					<div className="event-category">
-						<label htmlFor="eventCategory" />
-						<select
-							value={selectedOption}
-							onChange={(e) => handleOptionChange(e.target.value)}
-						>
-							<option value="">Category</option>
-							<option value="relax">Relax</option>
-							<option value="family">Family</option>
-							<option value="sports">Sports</option>
-							<option value="nightlife">Nightlife</option>
-							<option value="educative">Educative</option>
-							<option value="work">Work</option>
-						</select>
+				<div className="category-public">
+					<label htmlFor="eventCategory" />
+					<select
+						value={selectedOption}
+						onChange={(e) => handleOptionChange(e.target.value)}
+					>
+						<option value="">Category</option>
+						<option value="relax">Relax</option>
+						<option value="family">Family</option>
+						<option value="sports">Sports</option>
+						<option value="nightlife">Nightlife</option>
+						<option value="educative">Educative</option>
+						<option value="work">Work</option>
+					</select>
+
+					<div className="public-option">
+						<p>Public to your friends?</p>
+						<label htmlFor="isPublicYes">yes</label>
+						<input
+							type="radio"
+							name="isPublic"
+							value={false}
+							checked={isPublic === true}
+							onChange={handleChangePublic}
+						/>
+						<label htmlFor="isPublicNo">no</label>
+						<input
+							type="radio"
+							name="isPublic"
+							value={true}
+							checked={isPublic === false}
+							onChange={handleChangePublic}
+						/>
 					</div>
 				</div>
 
@@ -229,7 +289,8 @@ export default function AddEvent({ updateEvents, closeForm }) {
 						type="date"
 						id="eventDate"
 						name="eventDate"
-						value={newEvent.eventDate}
+						value={false}
+						checked={isPublic === false}
 						onChange={handleChange}
 						required
 					/>

@@ -7,13 +7,15 @@
    min-width: 34rem;
    width: 100%;
    margin: 0 auto;
+   margin-top: 1rem;
+   width: 78vw;
 }
 
 .App > div{
   margin: 0 auto;
   padding: 2px;
   width: 78vw;
-  margin-top: 3rem;
+  margin-top: 4px;
   
 }
 
@@ -23,37 +25,38 @@
 }
 
 nav {
-  background-color: rgba(0, 0, 0, 0.785);
-  padding: 1.5rem 8rem;
+  background-color: rgba(255, 255, 255, 0.878);
+  /* box-shadow: 0 4px 25px 2px #b4b4b480; */
+  border-radius: 3vw;
+  border: 2px solid #444444;
+  padding: 1.2rem 8rem;
 }
 
 .event-card {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-  margin: 1rem;
-  border: 1px solid #eaeaea;
-  border-radius: 8px;
-  background-color: #f5f5f5;
+  text-align: left;
+  padding: 1rem 3rem;
+  width: 28%;
+    min-width: 19rem;
+  background-color: rgba(255, 255, 255, 0.878);
+    box-shadow: 0 4px 25px 2px #b4b4b480;
+    z-index: 1000;
+    border-radius: 3vw;
+    border: 2px solid #444444;
 }
-
-/* form {
-  display: flex;
-  flex-wrap: wrap;
-}
-*/
 
 nav ul{
   list-style: none;
   display: flex;
   gap: 1rem;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 nav li a{
-  color: white;
+  color: rgb(50, 50, 50);
+  font-size: 32px;
+  font-weight: 400;
 } 
 
 .profile-icon {

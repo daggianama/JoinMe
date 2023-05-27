@@ -1,84 +1,46 @@
-
 .add-event {
     background-color: #f9f9f9;
-    width: 100%;
+
 }
 
 form {
     display: flex;
     flex-direction: column;
-    
-    margin: 0 auto;
-    padding: 3vw 11vw;
+    padding: 4px 2rem;
     text-align: left;
     gap: 1rem;
-    background-color: rgba(245, 245, 245, 0.702);
-    box-shadow: 0 4px 25px 2px #b4b4b469;
-    position: fixed;
-    bottom: 1.4vw;
-    left: 16vw;
-    right: 16vw;
-    z-index: 999;
-    border-radius: 8px;
-}
-
-input {
-    margin-bottom: 10px;
-    width: 100%;
-}
-
-.address-input  {
-    display: flex;
-}
-
-.address-input label {
-    width: 19%;
-    margin: 1px;
-}
-
-.input-title-tag {
-    display: flex;
-    /* flex-wrap: wrap;
-    min-width: 2rem;
-    max-width: 18rem; */
-    justify-content: space-between;
-    gap: 1vw;
-}
-
-.input-title-tag label {
-    width: 14%;
-    margin: 1px;
-}
-
-.input-title-tag div {
-    width: 46%;
-    display: flex;
-    gap: 1px;
-}
-
-.input-title-tag div label {
-    width: 1%;
-    margin: 0;
-    padding: 0;
+    background-color: rgba(255, 255, 255, 0.878);
+    box-shadow: 0 4px 25px 2px #b4b4b480;
+    z-index: 1000;
+    border-radius: 3vw;
+    border: 2px solid #444444;
+    height: 37rem;
+    width: 28%;
+    min-width: 19rem;
 }
 
 form input {
+    width: 100%;
     min-width: 4rem;
 }
 
-
-
-.input-time {
-    display: flex;
-    justify-content: space-between;
-    gap: 1vw;
-    margin-bottom: 1rem;
-}
-
-.input-time label {
+label {
     width: 14%;
     margin: 1px;
 }
+
+.address {
+    display: flex;
+}
+
+.title {
+    display: flex;
+}
+
+.category-public {
+    display: flex;
+}
+
 
 .submit-button {
     all: unset;
@@ -94,7 +56,7 @@ form input {
     align-self: center;
     border-radius: 8px;
     border: 1.5px solid #83838348;
-    
+
 }
 
 .submit-button:hover {

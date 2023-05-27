@@ -1,19 +1,51 @@
 
 
+.map-filters {
+    display: flex;
+    gap: 1rem;
+    margin: 1.5rem 0 .5rem 1rem;
+    justify-content: center;
+    border-radius: 3vw;
+    border: 2px solid #444444;
+    text-align: left;
+    gap: 1rem;
+    background-color: rgba(255, 255, 255, 0.878);
+    max-height: 4.2rem;
+    width: 52%;
+    min-width: 27rem;
+}
+
+.map-filters h4 {
+   font-size: 15px;
+}
+
 .filter-markers {
+    height: 4rem;
+    padding: 0 2rem;
     display: flex;
     align-items: center;
-    padding-bottom: 1rem;
-    gap: 2rem;
-}
-
-
-.filter-markers .date, .users {
-    display: flex;
-    gap: .5vw;
-}
-
-label {
+    justify-content: space-between;
     width: 100%;
+}
 
+select, input {
+    border-radius: .8vw;
+    background-color: #eaeaea;
+    border: 1px solid #c8c8c89f;
+    padding: .3rem;
+}
+
+.filter-markers label {
+    width: 100%;
+    font-size: 12px;
+    margin: 0;
+}
+
+.filter-markers .date {
+}
+
+.filter-markers .date, .friends {
+    display: flex;
+    flex-direction: column;
+    height: 80%;
 }

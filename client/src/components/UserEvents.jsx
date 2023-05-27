@@ -1,21 +1,16 @@
-import { useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { handleMouseDown, handleMouseMove, handleMouseUp } from "../utils/interactions";
 
 export default function UserEvents({events, updateEvents, selectedEvent}) {
-	// const [events, setEvents] = useState([]);
+		// STATE FOR DRAGGABLE FORM
+		const [position, setPosition] = useState({ x: 900, y: 150 });
+		const [isDragging, setIsDragging] = useState(false);
+		const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+	
 
 	useEffect(() => {
 		updateEvents();
 	}, []);
-
-	// async function loadUser() {
-	// 	const res = await fetch(`/api/events`);
-	// 	const data = await res.json();
-	// 	data.map(
-	// 		(event) => (event.eventDate = event.eventDate.split("T")[0])
-	// 	);
-	// 	setEvents(data);
-	// }
 
 	const handleDelete = (id) => {
 		deleteEvent(id)
@@ -40,10 +35,21 @@ export default function UserEvents({events, updateEvents, selectedEvent}) {
 
 	return (
 		<div>
-			<h3>Your Events</h3>
+			<h3></h3>
 			{events.map((e, i) => (
 				!selectedEvent || e.id === selectedEvent && (
-				<div key={i} className="event-card">
+					<div key={i} className="event-card"
+					style={{
+						position: "absolute",
+						left: position.x,
+						top: position.y,
+						cursor: isDragging ? "grabbing" : "grab",}}
+						onMouseDown={(event) =>
+							handleMouseDown(event, setPosition, setIsDragging, setDragOffset, position)}
+						onMouseMove={(event) =>
+							handleMouseMove(event, isDragging, setPosition, dragOffset)
+						}
+						onMouseUp={() => handleMouseUp(setIsDragging)}>
 					<p>{e.eventTitle}</p>
 					<p>{e.eventLocation}</p>
 					<p>{e.eventDate}</p>
@@ -58,7 +64,7 @@ export default function UserEvents({events, updateEvents, selectedEvent}) {
 					</div>
 				)
 			))}
-			<Outlet />
+
 		</div>
 	);
 }

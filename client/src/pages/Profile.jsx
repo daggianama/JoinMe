@@ -1,7 +1,7 @@
 import "./Profile.css";
 
 
-export default function Profile({ userFriends}) {
+export default function Profile({ friends}) {
 
 
 
@@ -11,7 +11,7 @@ export default function Profile({ userFriends}) {
             <div className="div user-friends">
                 <h3>Friends</h3>
                 <ul>
-                    {userFriends.map((f, i) => (
+                    {friends.map((f, i) => (
                         <li key={i}>
                             {f.firstName} {f.lastName}
                         </li>

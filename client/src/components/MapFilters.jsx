@@ -1,5 +1,5 @@
 import "./MapFilters.css";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
 export default function MapFilters({ filterChange, selectedDate, friends }) {
     
@@ -13,9 +13,9 @@ export default function MapFilters({ filterChange, selectedDate, friends }) {
 	};
 
 	return (
-		<div>
+		<div className="map-filters">
 			<div className="filter-markers">
-				<h4>Events Filters</h4>
+				<h4>VIEW</h4>
 				<div className="date">
 					<label htmlFor="eventDate">By date</label>
 					<input
@@ -26,10 +26,10 @@ export default function MapFilters({ filterChange, selectedDate, friends }) {
 						onChange={filterChange}
 					/>
 				</div>
-				<div className="users">
-					<label htmlFor="eventDate">By friends</label>
+				<div className="friends">
+					<label htmlFor="eventDate">Friend events</label>
 					<select value="User2" onChange={defaultValue}>
-						<option value="">Your friends</option>
+						<option value=""></option>
 						{friends.map((f, i) => (
 							<option key={i} value={f}>
 								{f.firstName} {f.lastName}

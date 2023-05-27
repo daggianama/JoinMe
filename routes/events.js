@@ -35,7 +35,7 @@ router.get("/:id", async (req, res) => {
 
 // POST a new event to the database done by user
 router.post("/:id", async (req, res) => {
-	const { eventTitle, eventLocation, eventDate, eventStartTime, latitude, longitude, category } =
+	const { eventTitle, eventLocation, eventDate, eventStartTime, latitude, longitude, category, public } =
 		req.body;
 	try {
 		await db(
@@ -49,7 +49,7 @@ router.post("/:id", async (req, res) => {
 		const { id } = req.params;
 		try {
 			await db(
-				`INSERT INTO participation (user_id, event_id) VALUES ("${id}", "${event_id}");`
+				`INSERT INTO participation (user_id, event_id, public) VALUES ("${id}", "${event_id}", "${public}");`
 			);
 			//here is not necesary to send back any data
 			res
