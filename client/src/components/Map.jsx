@@ -89,8 +89,6 @@ export default function Map({ events, updateEvents, mapClick, userId, friends })
 }, []);
 	
 
-	// }, [selectedDate]);
-
 	//CREATE MARKERS FROM USER CLICK ON MAP
 	const OnClickMarkers = () => {
 		useMapEvents({
@@ -258,7 +256,7 @@ export default function Map({ events, updateEvents, mapClick, userId, friends })
 								
 				</MapContainer>
 			</div>
-			<UserEvents events={events} updateEvents={updateEvents} selectedEvent={selectedEvent}/>
+			<UserEvents events={events} updateEvents={updateEvents} selectedEvent={selectedEvent} friendEvents={friendEvents} />
 		</div>
 	);
 }

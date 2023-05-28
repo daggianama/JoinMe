@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import { Route, Routes, Link } from "react-router-dom";
 import Home from "./pages/Home";
-import CalendarPage from "./pages/CalendarPage";
 import AddEvent from "./components/AddEvent";
 import Profile from "./pages/Profile";
+import Calendar from "./pages/Calendar";
 
 function App() {
 	const [selectAddEvent, setSelectAddEvent] = useState(false);
@@ -18,7 +18,7 @@ function App() {
 			await loadUserEvents();
 			await loadUserFriends();
 		})();
-	}, [ id]);
+	}, [id]);
 
 	async function loadUserEvents() {
 		try {
@@ -110,7 +110,7 @@ function App() {
 				<Route
 					path={`/:userId/calendar`}
 					element={
-						<CalendarPage
+						<Calendar
 							events={userEvents}
 							updateEvents={loadUserEvents}
 						/>

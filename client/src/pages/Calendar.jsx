@@ -8,17 +8,6 @@ export default function UserCalendar({events}) {
     const localizer = dayjsLocalizer(dayjs);
     // const [userEvents, setUserEvents] = useState([]);
 
-    // useEffect(() => {
-    //     loadUser();
-    // }, []);
-
-    // async function loadUser() {
-    //     const res = await fetch(`/api/events`);
-    //     const data = await res.json();
-    //     data.map(event => event.eventDate = event.eventDate.split('T')[0]);
-    //     setUserEvents(data);
-    //     console.log(data);
-    // }
   
     const eventsCalendar = events.map((event) => {
         return {

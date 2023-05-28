@@ -141,6 +141,29 @@ select, input {
   border-radius: 11px;
 }
 
+.event-card .delete:hover {
+  background-color: var(--red);
+  color: white;
+}
+
+.event-card .join {
+  all: unset;
+  text-align: center;
+  font-size: smaller;
+  padding: 4px 0 ;
+  font-weight: 500;
+  margin: 14px 0 22px 0;
+  background-color:var(--light-primary);
+  color:white;
+  cursor: pointer;
+  width: 8rem;
+  border-radius: 2rem;
+}
+
+.event-card .join:hover {
+  background-color: var(--primary);
+} 
+
 
 /* AddEvent Form ---------------------------------*/
 
