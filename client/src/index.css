@@ -6,6 +6,29 @@
 @import 'tailwindcss/utilities';
 @import url('https://fonts.googleapis.com/css?family=Inter:400,700&display=swap');
 
+
+:root {
+  /* colors */
+  --primary:rgba(80, 69, 235, 0.794);
+  --light-primary: rgba(107, 97, 245, 0.794);
+  --dark-grey: #rgb(33, 33, 33);
+  --background-color: rgba(255, 255, 255, 0.878);
+  --white:  rgba(255, 255, 255, 0.878);
+  --light-red: #ef536aa1;
+  --red:  #e9465ebd;
+  --relax: #f9f9f9;
+  --family: #f9f9f9;
+  --sports:var(--background-color);
+  --work: #f9f9f9;
+  --educative: #f9f9f9;
+  --nightlife: #f9f9f9;
+  /* shadows */
+  --shadow-focus: 0 0 6px 1px var(--primary);
+  --shadow: 0 2px 12px 1px #83838331;
+}
+
+/* GLOBAL STYLES */
+
 * {
   line-height: 1.5;
   text-decoration: none;
@@ -15,7 +38,34 @@
 }
 
 body {
-  background-color: #f7fafc;
+  background-color: #f9f9f9;
+  margin: 0 auto;
+}
+
+h4 {
+  font-size: 1.6rem;
+  font-weight: 300;
+  margin: 0;
+}
+
+.close {
+  all: unset;
+  position: absolute;
+  top: 1.5rem;
+  right: 1.7rem;
+  cursor: pointer;
+  font-size: 1.5rem;
+  font-weight: 400;
 }
 
 
+input:focus, input::selection, select:focus, option{
+  outline: 1px solid var(--light-primary);
+  margin: 0;
+
+}
+
+textarea::selection, input::selection, select::selection{
+  background-color: var(--light-primary);
+  color: whitesmoke !important;
+}

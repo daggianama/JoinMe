@@ -21,8 +21,8 @@ export default function Map({ events, updateEvents, mapClick, userId, friends })
 	const navigate = useNavigate();
 	const mapRef = useRef();
 	const markerRefs = useRef({});
-
-	console.log("userId", userId);
+	const [friendEvents, setFriendEvents] = useState([]);
+	console.log(events);
 
 	const handleMarkerHover = (markerId) => {
 		setHoveredMarker(markerId);
@@ -61,7 +61,10 @@ export default function Map({ events, updateEvents, mapClick, userId, friends })
 	});
 
 	useEffect(() => {
-		// // Get the user's current location
+		(async () => {
+			await updateEvents();
+		})();
+		// Get the user's current location
 		if ("geolocation" in navigator) {
 			navigator.geolocation.getCurrentPosition(
 				(position) => {
@@ -77,9 +80,15 @@ export default function Map({ events, updateEvents, mapClick, userId, friends })
 					);
 				}
 			);
+		} else {
+			console.error(
+				"La geolocalización no está soportada por tu navegador"
+			);
 		}
-		updateEvents();
-	}, [markers]);
+	
+}, []);
+	
+
 	// }, [selectedDate]);
 
 	//CREATE MARKERS FROM USER CLICK ON MAP
@@ -157,14 +166,16 @@ export default function Map({ events, updateEvents, mapClick, userId, friends })
 				filterChange={handleFilterChange}
 				userId={userId}
 				friends={friends}
+				setFriendEvents={setFriendEvents}
+
 			/>
 			<div className="map">
 				<MapContainer
 					className="MarkerMap"
 					center={center}
-					zoom={14}
+					zoom={15}
 					style={{
-						height: "55vh",
+						height: "37vw",
 						width: "100 % ",
 					}} // you MUST specify map height, else it will be 0!
 					eventHandlers={{
@@ -206,25 +217,45 @@ export default function Map({ events, updateEvents, mapClick, userId, friends })
 						</Marker>
 					))}
 
-					{events.map((e) => (
+					{!friendEvents.length && events.map((e) => (
 						!selectedDate || e.eventDate === selectedDate ? (
-						<Marker
-							key={e.id}
-							position={[e.latitude, e.longitude]}
-							eventHandlers={{
-								mouseover: () => handleMarkerHover(e.id),
-								mouseout: () => handleMarkerHover(null),
-								click: () => handleEventDetails(e.id),
-							}}
-							ref={(ref) => (markerRefs.current[e.id] = ref)}
-						>
-							<Popup key={e.id}>
-								<p>{e.eventTitle}</p>
-								{e.eventStartTime}
-							</Popup>
-						</Marker>
+							<Marker
+								key={e.id}
+								position={[e.latitude, e.longitude]}
+								eventHandlers={{
+									mouseover: () => handleMarkerHover(e.id),
+									mouseout: () => handleMarkerHover(null),
+									click: () => handleEventDetails(e.id),
+								}}
+								ref={(ref) => (markerRefs.current[e.id] = ref)}
+							>
+								<Popup key={e.id}>
+									<p>{e.eventTitle}</p>
+									{e.eventStartTime}
+								</Popup>
+							</Marker>
 						) : null
 					))}
+						
+						{friendEvents.length && friendEvents.map((e) => (
+							<Marker
+								key={e.id}
+								position={[e.latitude, e.longitude]}
+								eventHandlers={{
+									mouseover: () => handleMarkerHover(e.id),
+									mouseout: () => handleMarkerHover(null),
+									click: () => handleEventDetails(e.id),
+								}}
+								ref={(ref) => (markerRefs.current[e.id] = ref)}
+							>
+								<Popup key={e.id}>
+									<p>{e.eventTitle}</p>
+									{e.eventStartTime}
+								</Popup>
+							</Marker>
+						))
+					}
+								
 				</MapContainer>
 			</div>
 			<UserEvents events={events} updateEvents={updateEvents} selectedEvent={selectedEvent}/>

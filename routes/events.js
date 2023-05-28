@@ -35,29 +35,29 @@ router.get("/:id", async (req, res) => {
 
 // POST a new event to the database done by user
 router.post("/:id", async (req, res) => {
-	const { eventTitle, eventLocation, eventDate, eventStartTime, latitude, longitude, category, public } =
+	let { eventTitle, eventLocation, eventDate, eventStartTime, latitude, longitude, category, public } =
 		req.body;
 	try {
 		await db(
 			`INSERT INTO events (eventTitle, eventLocation, eventDate, eventStartTime, latitude, longitude, category ) VALUES ("${eventTitle}", "${eventLocation}", "${eventDate}", "${eventStartTime}", ${latitude}, ${longitude}, "${category}");`
 		);
-		//here is not necesary to send back any data
-		res
-			.status(201)
-			.send({ message: "Event created successfully :)" });
+		// select last id created from  events table
+		const data = await db(`SELECT * FROM events ORDER BY id DESC LIMIT 1;`);
 		// post event to participation table with user id
 		const { id } = req.params;
+		const event_id = await data.data[0].id;
+		public === true ? public = 1 : public = 0;
 		try {
 			await db(
-				`INSERT INTO participation (user_id, event_id, public) VALUES ("${id}", "${event_id}", "${public}");`
+				`INSERT INTO participation (user_id, event_id, public) VALUES ("${id}", "${event_id}", ${public});`
 			);
-			//here is not necesary to send back any data
 			res
 				.status(201)
-				.send({ message: "Participation created successfully :)" });
+				.send({ message: "Event participation created successfully :)" });
 			} catch (err) {
 				res.status(500).send({ message: err });
-				}
+		}
+		
 	} catch (err) {
 		res.status(500).send({ message: err });
 	}

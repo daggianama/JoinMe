@@ -1,4 +1,4 @@
-import "./Home.css";
+
 import { useEffect } from "react";
 import Map from "../components/Map";
 import { Outlet, useParams } from "react-router-dom";
@@ -21,7 +21,7 @@ export default function Home({ events, updateEvents, mapClick, friends }) {
 				/>
 			</div>
 			{/* <MarkerTable places={events} /> */}
-			<div className="addevent-view">
+			<div className="addevent-view" >
 				<Outlet />
 			</div>
 		</div>

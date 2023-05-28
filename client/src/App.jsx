@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
 import "./App.css";
 import { Route, Routes, Link } from "react-router-dom";
@@ -5,7 +6,6 @@ import Home from "./pages/Home";
 import CalendarPage from "./pages/CalendarPage";
 import AddEvent from "./components/AddEvent";
 import Profile from "./pages/Profile";
-import "tailwindcss/tailwind.css";
 
 function App() {
 	const [selectAddEvent, setSelectAddEvent] = useState(false);
@@ -13,11 +13,22 @@ function App() {
 	const [userFriends, setUserFriends] = useState([]);
 	const id = 1;
 
+	useEffect(() => {
+		(async () => {
+			await loadUserEvents();
+			await loadUserFriends();
+		})();
+	}, [ id]);
+
 	async function loadUserEvents() {
 		try {
 			const res = await fetch(`/api/participation/${id}`);
 			const data = await res.json();
-			loadEvents(data);
+			if (data) {
+				await loadEvents(data);
+			} else {
+				console.error("Data is undefined");
+			}
 		} catch (error) {
 			console.error(error);
 		}
@@ -25,7 +36,10 @@ function App() {
 
 	const loadEvents = async (data) => {
 		try {
-			const eventPromises = data.map(async (event) => {
+			if (!data) {
+				console.error("Data is undefined");
+				return; }
+			const eventPromises = await data.map(async (event) => {
 				const res = await fetch(`/api/events/${event.event_id}`);
 				const eventData = await res.json();
 				eventData.eventDate = eventData.eventDate.split("T")[0];
@@ -39,36 +53,32 @@ function App() {
 		}
 	};
 
+
 	async function loadUserFriends() {
 		try {
 			const res = await fetch(`/api/friends/${id}`);
 			const data = await res.json();
-			console.log("this is your friends" + data);
 			setUserFriends(data);
 		} catch (error) {
 			console.error(error);
 		}
-		
 	}
-
-	useEffect(() => {
-		loadUserFriends();
-	}, [id]);
 
 	return (
 		<div className="App">
 			<nav>
 				<ul>
+					<div className="home-calendar">
+						<li>
+							<Link to={`/${id}`}>HOME</Link>
+						</li>
+						<li>
+							<Link to={`/${id}/calendar`}>CALENDAR</Link>
+						</li>
+					</div>
 					<li>
-						<Link to={`/${id}`}>Home</Link>
+						<Link to={`/${id}/profile`}>PROFILE</Link>
 					</li>
-					<li>
-						<Link to={`/${id}/calendar`}>Calendar</Link>
-					</li>
-					<li className="profile-icon">
-						<Link to={`/${id}/profile`}>👤</Link>
-					</li>
-				
 				</ul>
 			</nav>
 
@@ -91,6 +101,7 @@ function App() {
 								<AddEvent
 									updateEvents={loadUserEvents}
 									closeForm={setSelectAddEvent}
+									userId={id}
 								/>
 							)
 						}

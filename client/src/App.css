@@ -1,63 +1,55 @@
-
+/* HOME PAGE */
 
 .App {
   color: #434649;
   text-align: center;
   font-weight: 300;
-   min-width: 34rem;
-   width: 100%;
+   min-width: 38rem;
    margin: 0 auto;
    margin-top: 1rem;
-   width: 78vw;
+   max-width: 80rem;
 }
 
 .App > div{
   margin: 0 auto;
   padding: 2px;
   width: 78vw;
-  margin-top: 4px;
-  
+  margin-top: 3vw; 
+  max-width: 80rem;
 }
 
-.user-calendar {
-  display: flex;
-  flex-direction: column;
-}
-
-nav {
-  background-color: rgba(255, 255, 255, 0.878);
-  /* box-shadow: 0 4px 25px 2px #b4b4b480; */
-  border-radius: 3vw;
-  border: 2px solid #444444;
-  padding: 1.2rem 8rem;
-}
-
-.event-card {
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-  padding: 1rem 3rem;
-  width: 28%;
-    min-width: 19rem;
-  background-color: rgba(255, 255, 255, 0.878);
-    box-shadow: 0 4px 25px 2px #b4b4b480;
-    z-index: 1000;
-    border-radius: 3vw;
-    border: 2px solid #444444;
-}
+/* NAVIGATION ---------------------------------*/
 
 nav ul{
   list-style: none;
   display: flex;
-  gap: 1rem;
   justify-content: space-between;
+  padding: 4px 12px;
+}
+
+nav .home-calendar {
+  display: flex;
+  gap: 1rem;
+
+}
+
+nav li {
+  box-shadow: var( --shadow);
+  border-radius: 2rem;
+  padding: 5px 1.5rem;
+}
+
+nav li:hover {
+  cursor: pointer;
+  box-shadow: var( --shadow-focus);
 }
 
 nav li a{
-  color: rgb(50, 50, 50);
-  font-size: 32px;
+  color:var(--dark-grey);
+  font-size: 1.1rem;
   font-weight: 400;
 } 
+
 
 .profile-icon {
   font-size: 1.2rem;
@@ -65,4 +57,189 @@ nav li a{
   margin-right: 1rem;
 }
 
+
+/* MAP FILTERS ---------------------------------*/
+
+.map-filters {
+  margin: 1.5rem 0 .8rem 1rem;
+  border-radius: 2rem;
+  text-align: left;
+  max-width: 26rem;
+  min-width: 20rem;
+  box-shadow: 0 4px 9px 2px #8383833c;
+}
+
+.filter-markers {
+  height: 4rem;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+}
+
+select, input {
+  border-radius: 1rem;;
+  background-color: #eaeaea;
+  border: 1px solid #c8c8c89f;
+  padding: .1rem;
+}
+
+.filter-markers label {
+  font-size: 12px;
+}
+
+.filter-markers .date, .friends {
+  display: flex;
+  flex-direction: column;
+  height: 80%;
+}
+
+/* UserEvents ---------------------------------*/
+
+.event-card {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  padding: 1rem 2.5rem;
+  max-width: 24rem;
+  min-width: 17rem;
+  background-color:var(--background-color);
+  box-shadow: var( --shadow-focus);
+    z-index: 1000;
+    border-radius: 2rem;
+}
+
+.event-text {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+}
+
+.event-text span {
+  font-weight: 600;
+  color: var(--dark-grey);
+  margin-bottom: 4px;
+}
+
+.event-text p {
+  display: flex;
+  flex-direction: column;
+  margin: 8px 0;
+}
+
+.event-card .delete {
+  all: unset;
+  text-align: center;
+  padding: 0;
+  margin: 16px 0;
+  background-color: white;
+  border: 1px solid var(--light-red);
+  color:var(--light-red);
+  cursor: pointer;
+  width: 2rem;
+  border-radius: 11px;
+}
+
+
+/* AddEvent Form ---------------------------------*/
+
+.add-event {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  padding: 1rem 2.5rem;
+  gap: 1rem;
+  background-color:  var( --white);
+  box-shadow: var(--shadow-focus);
+  z-index: 1000;
+  border-radius: 2rem;
+  width: 26rem;
+  min-width: 17vw;
+    position: absolute;
+    left: clamp(0px, 1px, 1%);
+    top: clamp(0px, 1px, 1%);
+}
+
+.add-event h4 {
+  margin-bottom: 3rem;
+  font-weight: 500;
+  color: var(--primary);
+}
+
+.add-event .content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  margin-top: 1rem;
+}
+
+.add-event input {
+  width: 100%;
+  min-width: 4rem;
+  height: 2.3rem;
+}
+
+label {
+  margin: 1px 8px 0 0;
+  font-weight: 600;
+}
+
+.address, .title {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.category-date {
+  display: flex;
+  justify-content: space-between;
+}
+
+.category-date input {
+  width: 100%;
+  margin: 0 0.5rem;
+}
+
+.input-time {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.public-option {
+  display: flex;
+  align-items: center;
+  justify-items: left;
+  width: 64%;
+}
+
+.public-option input {
+  height: 18px;
+  width: 10px;
+}
+
+.public-option input:focus {
+  outline: none;
+}
+
+.submit-button {
+  all: unset;
+  text-align: center;
+  font-weight: 500;
+  letter-spacing: 2px;
+  padding: 12px;
+  margin: 1.8rem 0;
+  background-color:  var(--light-primary);
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  box-shadow: 0 2px 20px 1px #7c7c7c29;
+  width: 80%;
+  align-self: center;
+  border-radius: 1.5rem;
+}
+
+.submit-button:hover {
+  background-color: var(--primary);
+}
 

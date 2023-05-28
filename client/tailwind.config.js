@@ -2,7 +2,12 @@
 export default {
   content: [],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        
+
+        }
+    },
   },
   plugins: [],
 }

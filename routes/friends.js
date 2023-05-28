@@ -16,7 +16,7 @@ router.get("/:id", async (req, res) => {
         );
 
         res.send(results.data.map((item) => { 
-            return { firstName: item.firstName, lastName: item.lastName };
+            return item = {firstName: item.firstName, lastName: item.lastName, id: item.id};
             }));
     } catch (err) {
         res.status(500).send({ error: err.message });
