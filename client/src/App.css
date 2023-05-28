@@ -58,6 +58,12 @@ nav li a{
 }
 
 
+/* MAP ----------------------------------------------------------------*/
+
+
+
+
+
 /* MAP FILTERS ---------------------------------*/
 
 .map-filters {
@@ -264,5 +270,24 @@ label {
 
 .submit-button:hover {
   background-color: var(--primary);
+}
+
+
+
+/* CALENDAR ------------------------------------------------*/
+
+.rbc-calendar .rbc-event, .rbc-day-slot .rbc-background-event {
+  color:rgb(255, 255, 255);
+  background-color: var(--light-primary);
+  border: none;
+}
+
+.rbc-calendar .rbc-selected {
+  background-color: var(--primary);
+  border: none;
+}
+
+.rbc-toolbar button:active, button.rbc-active{
+  background-color: var(--light-primary);
 }
 

@@ -22,6 +22,11 @@ export default function Map({ events, updateEvents, mapClick, userId, friends })
 	const mapRef = useRef();
 	const markerRefs = useRef({});
 	const [friendEvents, setFriendEvents] = useState([]);
+	const apikey = "93f3b807324f458ea74a579cb8a1d723";
+	const mapStyle = {
+		color: "#3388ff",
+		fillColor: "#3388ff",
+		fillOpacity: 0.6,};
 	console.log(events);
 
 	const handleMarkerHover = (markerId) => {
@@ -183,7 +188,8 @@ export default function Map({ events, updateEvents, mapClick, userId, friends })
 				>
 					<OnClickMarkers />
 
-					<TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+					<TileLayer url={`https://{s}.tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=${apikey}`}
+						/>
 
 					<Marker position={center} icon={greenMarker}>
 						<Popup>
