@@ -11,7 +11,8 @@ export default function UserEvents({
 	updateEvents,
 	selectedEvent,
 	friendEvents,
-	closeModal
+	closeModal,
+	friendId
 }) {
 	// STATE FOR DRAGGABLE FORM
 	const [position, setPosition] = useState({ x: 100, y: 290 });
@@ -33,13 +34,39 @@ export default function UserEvents({
 	};
 
 	const handleDelete = async (id) => {
-	
-		console.log("event" + id);
+
 		await deleteEvent(id);
 		updateEvents();
-		
-		
 	};
+
+	const handleNewParticipation = async (id) => {
+		await newParticipation(id);
+		updateEvents();
+	};
+		
+		const newParticipation = async (id) => {
+			try {
+				await fetch(`/api/participation/${userId}/${id}`, {
+					method: "POST",
+					headers: {
+	
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({ id: id }),
+				})
+					// // upon success, update tasks
+					.then((res) => res.json())
+					// upon failure, show error message
+					.catch((error) => console.error(error));
+			} catch (error) {
+				console.error(error);
+			}
+			updateEvents();
+			handleClose();
+		};
+	
+
+
 
 
 
@@ -109,8 +136,8 @@ export default function UserEvents({
 								className="delete"
 								type="button"
 								onClick={() => handleDelete(e.id)}
-							>
-								<i className="fa-solid fa-trash-can"></i>{" "}
+							><i className="fa fa-face-frown"></i>
+								<p></p>Not going 
 							</button>
 							<div className="event-text">
 								<h4>{e.eventTitle}</h4>
@@ -122,6 +149,9 @@ export default function UserEvents({
 						</form>
 					))
 			)}
+
+
+			{/* For Friends Events Event Cards */}
 			{!userEventIds.includes(selectedEvent) ? Array.isArray(friendEvents) && friendEvents.map(
 				(e, i) =>
 					!selectedEvent ||
@@ -162,7 +192,7 @@ export default function UserEvents({
 							<button
 								className="join"
 								type="button"
-								onClick={() => handleDelete(e.id)}
+								onClick={() => handleNewParticipation(e.id)}
 							>
 								Join Friend
 							</button>

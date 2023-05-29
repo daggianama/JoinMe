@@ -17,9 +17,8 @@ router.get("/:id", async (req, res) => {
 
 
 // POST (create) a new participation to the database
-router.post("/:id", async (req, res) => {
-    const { event_id } =
-        req.body;
+router.post("/:user_id/:event_id", async (req, res) => {
+    const { user_id, event_id } = req.params;
     try {
         await db(
             `INSERT INTO participation (user_id, event_id) VALUES ("${user_id}", "${event_id}");`

@@ -58,7 +58,11 @@ h4 {
   font-weight: 400;
 }
 
-
+i {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: black;
+}
 input:focus, input::selection, select:focus, textarea::selection {
   outline: 1px solid var(--light-primary);
   margin: 0;

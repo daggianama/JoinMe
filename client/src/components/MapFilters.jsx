@@ -6,14 +6,26 @@ export default function MapFilters({
 	selectedDate,
 	friends,
 	setFriendEvents,
+	setFriendId,
 }) {
 	const [selectedFriend, setSelectedFriend] = useState("");
-	useEffect(() => {}, []);
 
-	console.log("friends", friends);
+	useEffect(() => {
+		console.log("friends", friends);
+	}, [friends]);
+
+	
 
 	const handleSelectFriend = async (selectedOption) => {
+		if (!selectedOption) {
+			// If the user clears the selection
+			setFriendEvents([]);
+			setSelectedFriend(null);
+			return;
+		 }
+		
 		const selectedValue = selectedOption.value;
+		setFriendId(selectedValue);
 		if (selectedValue === selectedFriend) {
 			return;
 		}
@@ -92,21 +104,8 @@ export default function MapFilters({
 						onChange={handleSelectFriend}
 						options={friendOptions}
 						styles={CustomStyle}
-						// isClearable={true}
+						isClearable={true}
 					/>
-					{/* <div className="friends">
-					<label htmlFor="friend-select">Friend events</label>
-					<Select
-						value={selectedFriend}
-						onChange={handleSelectFriend}
-					>
-						<option value=""></option>
-						{friends.map((f, i) => (
-							<option key={i} value={f.id}>
-								{f.firstName} {f.lastName}
-							</option>
-						))}
-					</select> */}
 				</div>
 			</div>
 		</div>

@@ -18,6 +18,7 @@ export default function Map({ events, updateEvents, mapClick, userId, friends })
 	const [hoveredMarker, setHoveredMarker] = useState(null);
 	const [selectedDate, setSelectedDate] = useState(null);
 	const [selectedEvent, setSelectedEvent] = useState(null);
+	const [friendId, setFriendId] = useState(null);
 	const navigate = useNavigate();
 	const mapRef = useRef();
 	const markerRefs = useRef({});
@@ -166,6 +167,7 @@ export default function Map({ events, updateEvents, mapClick, userId, friends })
 				userId={userId}
 				friends={friends}
 				setFriendEvents={setFriendEvents}
+				setFriendId={setFriendId}
 
 			/>
 			<div className="map">
@@ -258,7 +260,7 @@ export default function Map({ events, updateEvents, mapClick, userId, friends })
 								
 				</MapContainer>
 			</div>
-			<UserEvents userId={userId} events={events} updateEvents={updateEvents} selectedEvent={selectedEvent} friendEvents={friendEvents} />
+			<UserEvents userId={userId} events={events} updateEvents={updateEvents} selectedEvent={selectedEvent} friendEvents={friendEvents} friendId={friendId} />
 		</div>
 	);
 }
