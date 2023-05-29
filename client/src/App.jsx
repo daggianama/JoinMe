@@ -5,22 +5,18 @@ import { Route, Routes, Link } from "react-router-dom";
 import Home from "./pages/Home";
 import AddEvent from "./components/AddEvent";
 import Profile from "./pages/Profile";
-import Calendar from "./components/Calendar";
 import Invitations from "./pages/Invitations";
 
 function App() {
 	const [selectAddEvent, setSelectAddEvent] = useState(false);
-	const [selectCalendar, setSelectCalendar] = useState(false);
 	const [userEvents, setUserEvents] = useState([]);
 	const [userFriends, setUserFriends] = useState([]);
 	const id = 1;
 
 	useEffect(() => {
-		(async () => {
-			await loadUserEvents();
-			await loadUserFriends();
-		})();
-	}, [id]);
+		loadUserEvents();
+		loadUserFriends();
+	}, [selectAddEvent]);
 
 	async function loadUserEvents() {
 		try {
@@ -93,9 +89,9 @@ function App() {
 						<Home
 							events={userEvents}
 							updateEvents={loadUserEvents}
-							mapClick={setSelectAddEvent}
+							addEvent={setSelectAddEvent}
 							friends={userFriends}
-							selectCalendar={setSelectCalendar}
+					
 						/>
 					}
 				>
@@ -107,6 +103,7 @@ function App() {
 									updateEvents={loadUserEvents}
 									closeForm={setSelectAddEvent}
 									userId={id}
+									addEvent={setSelectAddEvent}
 								/>
 							)
 						}

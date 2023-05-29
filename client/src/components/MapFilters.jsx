@@ -22,7 +22,7 @@ export default function MapFilters({
 			setFriendEvents([]);
 			setSelectedFriend(null);
 			return;
-		}
+		 }
 		
 		const selectedValue = selectedOption.value;
 		setFriendId(selectedValue);

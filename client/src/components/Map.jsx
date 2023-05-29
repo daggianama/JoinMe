@@ -15,7 +15,7 @@ import UserEvents from "./UserEvents";
 export default function Map({
 	events,
 	updateEvents,
-	mapClick,
+	addEvent,
 	userId,
 	friends,
 }) {
@@ -87,6 +87,7 @@ export default function Map({
 				"La geolocalización no está soportada por tu navegador"
 			);
 		}
+		console.log(addEvent)
 	}, []); //iT MUST BE EMPTY SO IT ONLY RUNS ONCE WHEN THE COMPONENT IS MOUNTED
 	
 	useEffect(() => {
@@ -99,7 +100,7 @@ export default function Map({
 		filterMarkersByDate();
 	}, [selectedDate]); // <- IT RUNS WHEN THE SELECTED DATE CHANGES
 	
-	
+
 	//CREATE MARKERS FROM USER CLICK ON MAP
 	const OnClickMarkers = () => {
 		useMapEvents({
@@ -120,7 +121,7 @@ export default function Map({
 								"&address=" +
 								address
 						);
-						mapClick(true);
+						addEvent(true);
 					})
 					.then(setSelectedPosition([e.latlng.lat, e.latlng.lng]))
 					.catch((error) => {
@@ -155,6 +156,12 @@ export default function Map({
 		}
 	};
 
+	const handleAddeventButton = (e) => {
+		e.preventDefault();
+		navigate(`/${userId}/addEvent`);
+		addEvent(true);
+	};
+
 	const handleFilterChange = (event) => {
 		setSelectedDate(event.target.value);
 		filterMarkersByDate(event.target.value); // Call the filter function to update the markers
@@ -170,22 +177,29 @@ export default function Map({
 
 	return (
 		<div>
-			<MapFilters
+			<div className="map-options">
+			
+			
+				<MapFilters
 				selectedDate={selectedDate}
 				filterChange={handleFilterChange}
 				userId={userId}
 				friends={friends}
 				setFriendEvents={setFriendEvents}
 				setFriendId={setFriendId}
-			/>
+				/>
+				<button onClick={() => handleAddeventButton(event)}>
+				<i className="fas fa-plus"></i>
+				</button>
+				</div>
 			<div className="map">
 				<MapContainer
 					className="MarkerMap"
 					center={center}
 					zoom={15}
 					style={{
-						height: "37vw",
-						width: "100 % ",
+						height: "34vw",
+						width: "100% ",
 					}} // you MUST specify map height, else it will be 0!
 					eventHandlers={{
 						onClick: OnClickMarkers,
@@ -277,6 +291,7 @@ export default function Map({
 				selectedEvent={selectedEvent}
 				friendEvents={friendEvents}
 				friendId={friendId}
+		
 			/>
 		</div>
 	);

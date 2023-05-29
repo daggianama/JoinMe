@@ -19,10 +19,6 @@ export default function UserEvents({
 	const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
 	const userEventIds = events.map((e) => e.id);
 
-	useEffect(() => {
-		updateEvents();
-	}, []);
-
 	const handleClose = () => {
 		closeModal(false);
 	};

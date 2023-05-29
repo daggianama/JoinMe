@@ -14,6 +14,7 @@ export default function AddEvent({
 	updateEvents,
 	closeForm,
 	userId,
+	addEvent
 }) {
 	const [searchParams] = useSearchParams();
 
@@ -117,6 +118,7 @@ export default function AddEvent({
 		});
 		updateEvents();
 		closeForm(false);
+		addEvent(false);
 		console.log(newEvent);
 	};
 
@@ -132,6 +134,7 @@ export default function AddEvent({
 			public: false,
 		});
 		closeForm(false);
+		addEvent(false);
 	};
 
 	return (

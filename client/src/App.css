@@ -1,4 +1,4 @@
-/* HOME PAGE */
+
 
 .App {
   color: #434649;
@@ -6,15 +6,14 @@
   font-weight: 300;
    min-width: 38rem;
    margin: 0 auto;
-   margin-top: 1rem;
    max-width: 80rem;
 }
 
 .App > div{
   margin: 0 auto;
   padding: 2px;
-  width: 78vw;
-  margin-top: 3vw; 
+  width: 82vw;
+  margin-top: 1rem; 
   max-width: 80rem;
 }
 
@@ -24,7 +23,8 @@ nav ul{
   list-style: none;
   display: flex;
   justify-content: space-between;
-  padding: 4px 12px;
+  padding: 3px 28px 0 28px;
+  margin-bottom: 0;
 }
 
 nav .home-calendar {
@@ -58,6 +58,45 @@ nav li a{
 }
 
 
+/* HOME PAGE ---------------------------------*/
+
+.calendar-map {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 6px;
+  margin: 0 auto;
+  min-width: 10rem;
+  max-width: 11.3rem;
+  height: 2.7rem;
+  box-shadow: var( --shadow);
+  border-radius: 2rem; 
+  padding: 0 12px;
+}
+
+.calendar-map button {
+  all: unset;
+  font-weight: 400;
+  color: var(--dark-grey);
+  
+   border-radius: 2rem; 
+  padding: 0 .9rem;
+  height: 80%;
+  
+}
+
+.calendar-map button:hover {
+  cursor: pointer;
+
+}
+
+.calendar-map .selected {
+  box-shadow: var( --shadow-focus);
+  background-color: #ffffff72;
+
+}
+
+
 /* MAP ----------------------------------------------------------------*/
 
 .map {
@@ -76,29 +115,54 @@ nav li a{
   font-size: small;
 }
 
+.map-options {
+  display: flex;
+  gap: 2rem;
+  margin-top: 4rem;
+  align-items: center;
+ 
+}
+
+.map-options button {
+  all: unset;
+  font-weight: 400;
+  color: var(--primary);
+  border-radius: 1.3rem; 
+  box-shadow: var( --shadow);
+  padding: 10px 1rem;
+}
+.map-options button:hover {
+  cursor: pointer;
+  box-shadow: var( --shadow-focus);
+  background-color: #ffffff72;
+}
+
+button .fas {
+  color: var(--primary);
+
+}
+
 
 
 
 /* MAP FILTERS ---------------------------------*/
 
 .map-filters {
-  margin: 1.5rem 0 1rem 1rem;
-  border-radius: 2rem;
+  margin: 8px 0 15px 0;
+  border-radius: 2.2rem;
   text-align: left;
-  max-width: 26rem;
+  width: 30vw;
   min-width: 20rem;
-  box-shadow: 0 4px 9px 2px #8383833c;
+  box-shadow: var( --shadow);
  
 }
 
 .filter-markers {
-  height: 4.4rem;
-  padding: 0 2rem;
+  height: 4.3rem;
+  padding: 0 1rem;
   display: flex;
   align-items: center;
   justify-content: space-around;
-  width: 100%;
-
 }
 
 select, .date input {
@@ -117,6 +181,7 @@ select, .date input {
   display: flex;
   flex-direction: column;
   height: 80%;
+  padding: 0 4px;
 }
 
 .friend-select {
@@ -314,6 +379,10 @@ label {
 
 
 /* CALENDAR ------------------------------------------------*/
+
+.user-calendar {
+  margin-top: 7.6rem;
+}
 
 .rbc-calendar .rbc-event, .rbc-day-slot .rbc-background-event {
   color:rgb(255, 255, 255);
