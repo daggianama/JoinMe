@@ -24,21 +24,34 @@ export default function UserCalendar({events, updateEvents}) {
     };
 
   
+    let formats = {
+        timeGutterFormat: 'HH:mm',
+    }
+    
+
     const eventsCalendar = events.map((event) => {
+      
+        console.log(event);
         return {
             id: event.id,
             title: event.eventTitle,
-            start: new Date(event.eventDate),
-            end: new Date(event.eventDate),
+            start: mergeStringDateTime(event.eventDate, event.eventStartTime),
+            end: mergeStringDateTime(event.eventDate, event.eventEndTime),
             allDay: false,
         };
     });
+
+    function mergeStringDateTime(date = '', time = '') {
+        if (!date) return time ? dayjs(time).toDate() : undefined;
+        return time ? dayjs(`${date} ${time}`).toDate() : dayjs(date).toDate();
+      }
 
     return (
         <div className="user-calendar">
             <div>
                 <Calendar
                     localizer={localizer}
+                    formats={formats}
                     onSelectEvent={handleEventSelect} 
                     events={eventsCalendar}
                     defaultView="week"

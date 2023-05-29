@@ -11,8 +11,7 @@ export default function UserEvents({
 	updateEvents,
 	selectedEvent,
 	friendEvents,
-	closeModal,
-	friendId
+	closeModal
 }) {
 	// STATE FOR DRAGGABLE FORM
 	const [position, setPosition] = useState({ x: 100, y: 290 });
@@ -21,17 +20,13 @@ export default function UserEvents({
 	const userEventIds = events.map((e) => e.id);
 
 	useEffect(() => {
-		(async () => {
-			await updateEvents();
-		})();
-
-
-	}, [userId]);
-
+		updateEvents();
+	}, []);
 
 	const handleClose = () => {
 		closeModal(false);
 	};
+
 
 	const handleDelete = async (id) => {
 

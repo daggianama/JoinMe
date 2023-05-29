@@ -7,7 +7,7 @@ export default function Home({ events, updateEvents, mapClick, friends }) {
 	const params = useParams();
 	const userId = params.userId;
 
-	useEffect(() => {}, [params.userId]);
+
 
 	return (
 		<div className="home-page">
@@ -20,10 +20,8 @@ export default function Home({ events, updateEvents, mapClick, friends }) {
 					friends={friends}
 				/>
 			</div>
-			{/* <MarkerTable places={events} /> */}
-			<div className="addevent-view" >
 				<Outlet />
-			</div>
+	
 		</div>
 	);
 }

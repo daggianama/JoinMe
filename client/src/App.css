@@ -64,6 +64,19 @@ nav li a{
   z-index: 1;
 }
 
+.pop-event h5 {
+  text-decoration: underline var(--primary) 2px;
+  padding: 2px 0;
+  font-size: medium;
+  font-weight: 500;
+}
+
+.pop-event p span {
+  font-weight: 600;
+  font-size: small;
+}
+
+
 
 
 /* MAP FILTERS ---------------------------------*/
@@ -117,7 +130,7 @@ select, .date input {
   flex-direction: column;
   text-align: left;
   padding: 1rem 2.5rem;
-  max-width: 24rem;
+  max-width: 20rem;
   min-width: 17rem;
   background-color:var(--background-color);
   box-shadow: var( --shadow-focus);
@@ -143,21 +156,28 @@ select, .date input {
   margin: 8px 0;
 }
 
+.event-text h4 {
+  font-size: 2rem;
+  font-weight: 500;
+  margin: 0;
+  text-decoration: underline var(--primary) 4px;
+}
+
 .event-card .delete {
   all: unset;
   display: flex;
   align-items: center;
-  padding: 2px;
+  padding: 0;
   margin: 14px 0 22px 0;
   background-color: white;
   border: 1px solid var(--light-red);
   color:var(--light-red);
   cursor: pointer;
-  width: 8rem;
+  width: 6.2rem;
   border-radius: 16px;
   font-size: small;
   font-weight: 400;
-  gap: 1rem;
+  gap: 14px;
 }
 
 .event-card .delete:hover {
@@ -186,7 +206,8 @@ select, .date input {
 
 .event-card .join:hover {
   background-color: var(--primary);
-} 
+}
+
 
 
 /* AddEvent Form ---------------------------------*/

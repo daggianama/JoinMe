@@ -17,7 +17,6 @@ export default function AddEvent({
 }) {
 	const [searchParams] = useSearchParams();
 
-
 	const [newEvent, setNewEvent] = useState({
 		eventTitle: "",
 		eventLocation: searchParams.get("address") || "",
@@ -200,12 +199,10 @@ export default function AddEvent({
 											const style = suggestion.active
 												? {
 														backgroundColor: "#fafafa",
-														cursor: "pointer",
-												  }
+														cursor: "pointer", }
 												: {
 														backgroundColor: "#ffffff",
-														cursor: "pointer",
-												  };
+														cursor: "pointer", };
 											return (
 												<div
 													key={i}
@@ -246,7 +243,6 @@ export default function AddEvent({
 							onChange={handleChange}
 							required
 						/>
-					
 					</div>
 					<div className="input-time">
 						<label htmlFor="eventStartTime">Start:</label>

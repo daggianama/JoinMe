@@ -4,10 +4,9 @@ import {
 	Marker,
 	Popup,
 	useMapEvents,
-	Tooltip,
+
 } from "react-leaflet";
 import L from "leaflet";
-import { divIcon } from "leaflet";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MapFilters from "./MapFilters";
@@ -27,7 +26,6 @@ export default function Map({
 	const [selectedDate, setSelectedDate] = useState(null);
 	const [selectedEvent, setSelectedEvent] = useState(null);
 	const [friendId, setFriendId] = useState(null);
-	const [isPopupOpen, setIsPopupOpen] = useState(false);
 	const navigate = useNavigate();
 	const mapRef = useRef();
 	const markerRefs = useRef({});
@@ -68,9 +66,7 @@ export default function Map({
 		nameAnchor: [1, -34],
 		shadowSize: [30, 34],
 	});
-
 	useEffect(() => {
-	
 		if ("geolocation" in navigator) {
 			navigator.geolocation.getCurrentPosition(
 				(position) => {
@@ -91,11 +87,19 @@ export default function Map({
 				"La geolocalización no está soportada por tu navegador"
 			);
 		}
+	}, []); //iT MUST BE EMPTY SO IT ONLY RUNS ONCE WHEN THE COMPONENT IS MOUNTED
+	
+	useEffect(() => {
 		if (markerRefs.current && markerRefs.current.leafletElement) {
 			markerRefs.current.leafletElement.openPopup();
-		  }
-	}, [selectedPosition]);
-
+		}
+	}, [selectedPosition]); // <- iT IS JUST TO MAKE SURE THE POPUP IS OPENED WHEN THE SELECTED POSITION CHANGES
+	
+	useEffect(() => {
+		filterMarkersByDate();
+	}, [selectedDate]); // <- IT RUNS WHEN THE SELECTED DATE CHANGES
+	
+	
 	//CREATE MARKERS FROM USER CLICK ON MAP
 	const OnClickMarkers = () => {
 		useMapEvents({
@@ -236,10 +240,9 @@ export default function Map({
 									}}
 									ref={(ref) => (markerRefs.current[e.id] = ref)}
 								>
-									<Popup key={e.id}>
+									<Popup key={e.id} className="pop-event">
 										<h5>{e.eventTitle}</h5>
-										{e.eventDate}
-										{e.eventStartTime}
+										<p><span>Date  </span>{e.eventDate}</p>
 										
 									</Popup>
 								</Marker>
@@ -258,9 +261,10 @@ export default function Map({
 								}}
 								ref={(ref) => (markerRefs.current[e.id] = ref)}
 							>
-								<Popup key={e.id}>
-									<p>{e.eventTitle}</p>
-									{e.eventStartTime}
+								<Popup key={e.id} className="pop-event">
+									<h5>{e.eventTitle}</h5>
+									<p><span>Date  </span>{e.eventDate}</p>
+										
 								</Popup>
 							</Marker>
 						))}
