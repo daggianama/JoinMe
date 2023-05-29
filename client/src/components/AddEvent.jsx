@@ -10,9 +10,13 @@ import {
 	handleMouseUp,
 } from "../utils/interactions";
 
-export default function AddEvent({ updateEvents, closeForm, userId}) {
+export default function AddEvent({
+	updateEvents,
+	closeForm,
+	userId,
+}) {
 	const [searchParams] = useSearchParams();
-	console.log(userId);
+
 
 	const [newEvent, setNewEvent] = useState({
 		eventTitle: "",
@@ -31,7 +35,6 @@ export default function AddEvent({ updateEvents, closeForm, userId}) {
 	const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
 
 	useEffect(() => {
-
 		if ("geolocation" in navigator) {
 			navigator.geolocation.getCurrentPosition(
 				(position) => {
@@ -55,13 +58,7 @@ export default function AddEvent({ updateEvents, closeForm, userId}) {
 			latitude: searchParams.get("lat") || "",
 			longitude: searchParams.get("lng") || "",
 		}));
-
 	}, [searchParams]);
-
-	// const handleOptionChange = (option) => {
-	// 	setSelectedOption(option);
-	// 	console.log(option);
-	// };
 
 	const getSuggestionsByLocation = async (latitude, longitude) => {
 		const response = await fetch(
@@ -69,21 +66,14 @@ export default function AddEvent({ updateEvents, closeForm, userId}) {
 		);
 		const data = await response.json();
 		data.results.map((result) => result.formatted_address);
-		// Aquí puedes hacer lo que necesites con las sugerencias obtenidas
 	};
 
 	const handleChange = (event) => {
 		const { value, name, checked } = event.target;
-		// type === "checkbox"
-		// 	? setNewEvent((state) => ({
-		// 			...state,
-		// 			[name]: check,
-		// 	  }))
-		  setNewEvent((state) => ({
-			  ...state,
-			  [name]: name === "public" ? checked : value,
-			}));
-
+		setNewEvent((state) => ({
+			...state,
+			[name]: name === "public" ? checked : value,
+		}));
 	};
 
 	const handlePlaceSelect = async (address) => {
@@ -105,7 +95,7 @@ export default function AddEvent({ updateEvents, closeForm, userId}) {
 		e.preventDefault();
 
 		try {
-				await fetch(`/api/events/${userId}`, {
+			await fetch(`/api/events/${userId}`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -174,7 +164,7 @@ export default function AddEvent({ updateEvents, closeForm, userId}) {
 					X{" "}
 				</button>
 				<div className="content">
-					<h4>New event</h4>
+					<h4>Create event</h4>
 					<div className="address">
 						<label htmlFor="eventLocation">Address</label>
 						<PlacesAutocomplete
@@ -256,19 +246,7 @@ export default function AddEvent({ updateEvents, closeForm, userId}) {
 							onChange={handleChange}
 							required
 						/>
-						{/* <label htmlFor="eventCategory" /> */}
-						{/* <Select
-						className="select-category"
-						value={selectedOption}
-						onChange={(e) => handleOptionChange(e.target.value)}
-						options={options}
-						getOptionLabel={(option) => (
-							<div>
-								{option.icon} {option.label}
-							</div>
-						)}
-						getOptionValue={(option) => option.value}
-					/> */}
+					
 					</div>
 					<div className="input-time">
 						<label htmlFor="eventStartTime">Start:</label>
@@ -290,7 +268,7 @@ export default function AddEvent({ updateEvents, closeForm, userId}) {
 						/>
 					</div>
 					<div className="public-option">
-						<label htmlFor="isPublic">Public for friends</label>
+						<label htmlFor="isPublic">Friends can join</label>
 						<input
 							type="checkbox"
 							name="public"

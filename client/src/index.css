@@ -69,3 +69,10 @@ textarea::selection, input::selection, select::selection{
   background-color: var(--light-primary);
   color: whitesmoke !important;
 }
+
+select option {
+  all: unset;
+  background-color: var(--light-primary);
+  color: whitesmoke;
+
+}

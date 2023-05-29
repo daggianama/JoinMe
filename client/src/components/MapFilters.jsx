@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import Select from 'react-select';
+
 
 export default function MapFilters({
 	filterChange,
@@ -11,9 +13,10 @@ export default function MapFilters({
 		
 	}, []);
 
+	console.log("friends", friends)
+
 	const handleSelectFriend = async (e) => {
 		const selectedValue = e.target.value;
-
 		if (selectedValue === selectedFriend) {
 			return;
 		}
@@ -43,6 +46,15 @@ export default function MapFilters({
 		}
 	};
 
+	const friendOptions = 
+
+		friends.map((f) => ({
+		value: f.id,
+		label: `${f.firstName} ${f.lastName}`,
+		}))
+	;
+	console.log(friendOptions);
+
 	return (
 		<div className="map-filters">
 			<div className="filter-markers">
@@ -58,7 +70,17 @@ export default function MapFilters({
 				</div>
 				<div className="friends">
 					<label htmlFor="friend-select">Friend events</label>
-					<select
+					<Select
+						className="friend-select"
+						 defaultValue={friendOptions[0]}
+						// value={selectedFriend}
+						onChange={handleSelectFriend}
+						options={friendOptions}
+						// isClearable={true}
+					/>
+				{/* <div className="friends">
+					<label htmlFor="friend-select">Friend events</label>
+					<Select
 						value={selectedFriend}
 						onChange={handleSelectFriend}
 					>
@@ -68,7 +90,7 @@ export default function MapFilters({
 								{f.firstName} {f.lastName}
 							</option>
 						))}
-					</select>
+					</select> */}
 				</div>
 			</div>
 		</div>

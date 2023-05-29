@@ -60,19 +60,22 @@ nav li a{
 
 /* MAP ----------------------------------------------------------------*/
 
-
+.map {
+  z-index: 1;
+}
 
 
 
 /* MAP FILTERS ---------------------------------*/
 
 .map-filters {
-  margin: 1.5rem 0 .8rem 1rem;
+  margin: 1.5rem 0 2rem 1rem;
   border-radius: 2rem;
   text-align: left;
   max-width: 26rem;
   min-width: 20rem;
   box-shadow: 0 4px 9px 2px #8383833c;
+ 
 }
 
 .filter-markers {
@@ -82,6 +85,7 @@ nav li a{
   align-items: center;
   justify-content: space-around;
   width: 100%;
+
 }
 
 select, input {
@@ -99,6 +103,10 @@ select, input {
   display: flex;
   flex-direction: column;
   height: 80%;
+}
+
+.friend-select {
+  z-index: 800;
 }
 
 /* UserEvents ---------------------------------*/
