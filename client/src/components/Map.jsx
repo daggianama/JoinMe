@@ -4,14 +4,22 @@ import {
 	Marker,
 	Popup,
 	useMapEvents,
+	Tooltip,
 } from "react-leaflet";
 import L from "leaflet";
+import { divIcon } from "leaflet";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MapFilters from "./MapFilters";
 import UserEvents from "./UserEvents";
 
-export default function Map({ events, updateEvents, mapClick, userId, friends }) {
+export default function Map({
+	events,
+	updateEvents,
+	mapClick,
+	userId,
+	friends,
+}) {
 	const [center, setCenter] = useState([41.4091528, 2.1924869]);
 	const [markers, setMarkers] = useState([]);
 	const [selectedPosition, setSelectedPosition] = useState(["", ""]);
@@ -19,12 +27,12 @@ export default function Map({ events, updateEvents, mapClick, userId, friends })
 	const [selectedDate, setSelectedDate] = useState(null);
 	const [selectedEvent, setSelectedEvent] = useState(null);
 	const [friendId, setFriendId] = useState(null);
+	const [isPopupOpen, setIsPopupOpen] = useState(false);
 	const navigate = useNavigate();
 	const mapRef = useRef();
 	const markerRefs = useRef({});
 	const [friendEvents, setFriendEvents] = useState([]);
 	const apikey = "93f3b807324f458ea74a579cb8a1d723";
-
 
 	const handleMarkerHover = (markerId) => {
 		setHoveredMarker(markerId);
@@ -44,28 +52,25 @@ export default function Map({ events, updateEvents, mapClick, userId, friends })
 			"https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-yellow.png",
 		shadowUrl:
 			"https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
-		iconSize: [25, 41],
-		iconAnchor: [12, 41],
+		iconSize: [20, 36],
+		iconAnchor: [12, 36],
 		nameAnchor: [1, -34],
-		shadowSize: [41, 41],
+		shadowSize: [35, 36],
 	});
 
-	let orangeMarker = new L.icon({
+	let greyMarker = new L.icon({
 		iconUrl:
-			"https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-orange.png",
+			"https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-grey.png",
 		shadowUrl:
 			"https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
-		iconSize: [25, 41],
+		iconSize: [20, 34],
 		iconAnchor: [12, 41],
 		nameAnchor: [1, -34],
-		shadowSize: [41, 41],
+		shadowSize: [30, 34],
 	});
 
 	useEffect(() => {
-		// (async () => {
-		// 	await updateEvents();
-		// })();
-		// Get the user's current location
+	
 		if ("geolocation" in navigator) {
 			navigator.geolocation.getCurrentPosition(
 				(position) => {
@@ -86,9 +91,10 @@ export default function Map({ events, updateEvents, mapClick, userId, friends })
 				"La geolocalización no está soportada por tu navegador"
 			);
 		}
-	
-}, []);
-	
+		if (markerRefs.current && markerRefs.current.leafletElement) {
+			markerRefs.current.leafletElement.openPopup();
+		  }
+	}, [selectedPosition]);
 
 	//CREATE MARKERS FROM USER CLICK ON MAP
 	const OnClickMarkers = () => {
@@ -118,17 +124,19 @@ export default function Map({ events, updateEvents, mapClick, userId, friends })
 					});
 			},
 		});
-		// show an orange marker where the user just clicked
+
+		// show an grey marker where the user just clicked
 		return selectedPosition ? (
 			<Marker
-				key={selectedPosition[0]}
+				
 				position={selectedPosition}
-				interactive={false}
-				icon={orangeMarker}
+				icon={greyMarker}
 			>
-				<Popup>
-					<h4>Event Location</h4>
-				</Popup>
+			(
+					<Popup autoOpen>
+						<h4>Event Location</h4>
+					</Popup>
+				)
 			</Marker>
 		) : null;
 	};
@@ -137,13 +145,11 @@ export default function Map({ events, updateEvents, mapClick, userId, friends })
 		// showSelectedDetails(e); // Call the function to show the details
 		console.log("click on marker: ", e);
 		setSelectedEvent(e);
-	
+
 		if (e) {
-			return selectedEvent
+			return selectedEvent;
 		}
-
 	};
-
 
 	const handleFilterChange = (event) => {
 		setSelectedDate(event.target.value);
@@ -158,7 +164,6 @@ export default function Map({ events, updateEvents, mapClick, userId, friends })
 		return selectedDate;
 	};
 
-
 	return (
 		<div>
 			<MapFilters
@@ -168,7 +173,6 @@ export default function Map({ events, updateEvents, mapClick, userId, friends })
 				friends={friends}
 				setFriendEvents={setFriendEvents}
 				setFriendId={setFriendId}
-
 			/>
 			<div className="map">
 				<MapContainer
@@ -186,13 +190,13 @@ export default function Map({ events, updateEvents, mapClick, userId, friends })
 				>
 					<OnClickMarkers />
 
-					<TileLayer url={`https://{s}.tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=${apikey}`}
-						/>
+					<TileLayer
+						url={`https://{s}.tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=${apikey}`}
+					/>
 
 					<Marker position={center} icon={greenMarker}>
-						<Popup>
-							<h4>Hello User!</h4>
-							<p>Here we are</p>
+						<Popup autoOpen>
+							<h5>Here we are</h5>
 						</Popup>
 					</Marker>
 
@@ -219,8 +223,31 @@ export default function Map({ events, updateEvents, mapClick, userId, friends })
 						</Marker>
 					))}
 
-					{!friendEvents.length && events.map((e) => (
-						!selectedDate || e.eventDate === selectedDate ? (
+					{!friendEvents.length &&
+						events.map((e) =>
+							!selectedDate || e.eventDate === selectedDate ? (
+								<Marker
+									key={e.id}
+									position={[e.latitude, e.longitude]}
+									eventHandlers={{
+										mouseover: () => handleMarkerHover(e.id),
+										mouseout: () => handleMarkerHover(null),
+										click: () => handleEventDetails(e.id),
+									}}
+									ref={(ref) => (markerRefs.current[e.id] = ref)}
+								>
+									<Popup key={e.id}>
+										<h5>{e.eventTitle}</h5>
+										{e.eventDate}
+										{e.eventStartTime}
+										
+									</Popup>
+								</Marker>
+							) : null
+						)}
+
+					{friendEvents.length &&
+						friendEvents.map((e) => (
 							<Marker
 								key={e.id}
 								position={[e.latitude, e.longitude]}
@@ -236,33 +263,17 @@ export default function Map({ events, updateEvents, mapClick, userId, friends })
 									{e.eventStartTime}
 								</Popup>
 							</Marker>
-						) : null
-					))}
-						
-						{friendEvents.length && friendEvents.map((e) => (
-							<Marker
-								key={e.id}
-								position={[e.latitude, e.longitude]}
-								eventHandlers={{
-									mouseover: () => handleMarkerHover(e.id),
-									mouseout: () => handleMarkerHover(null),
-									click: () => handleEventDetails(e.id),
-								}}
-								ref={(ref) => (markerRefs.current[e.id] = ref)}
-							>
-								<Popup key={e.id}>
-									<p>{e.eventTitle}</p>
-									{e.eventStartTime}
-								</Popup>
-							</Marker>
-						))
-					}
-								
+						))}
 				</MapContainer>
 			</div>
-			<UserEvents userId={userId} events={events} updateEvents={updateEvents} selectedEvent={selectedEvent} friendEvents={friendEvents} friendId={friendId} />
+			<UserEvents
+				userId={userId}
+				events={events}
+				updateEvents={updateEvents}
+				selectedEvent={selectedEvent}
+				friendEvents={friendEvents}
+				friendId={friendId}
+			/>
 		</div>
 	);
 }
-
-

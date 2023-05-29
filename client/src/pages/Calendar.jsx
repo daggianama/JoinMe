@@ -1,12 +1,27 @@
 
-import { Outlet } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { Calendar, dayjsLocalizer } from "react-big-calendar";
 import dayjs from "dayjs";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import UserEvents from "../components/UserEvents";
 
-export default function UserCalendar({events}) {
-    // const { id } = useParams();
+export default function UserCalendar({events, updateEvents}) {
+    const { userId } = useParams();
     const localizer = dayjsLocalizer(dayjs);
-    // const [userEvents, setUserEvents] = useState([]);
+    const [selectedEvent, setSelectedEvent] = useState(null);
+
+
+    useEffect(() => {
+        console.log(userId)
+    }, []);
+
+
+    const handleEventSelect = (event) => {
+        console.log("event", event.id);
+        setSelectedEvent(event.id);
+        // setSelectedEvent(event);
+    };
 
   
     const eventsCalendar = events.map((event) => {
@@ -24,16 +39,23 @@ export default function UserCalendar({events}) {
             <div>
                 <Calendar
                     localizer={localizer}
+                    onSelectEvent={handleEventSelect} 
                     events={eventsCalendar}
+                    defaultView="week"
                     startAccessor="start"
                     endAccessor="end"
                     style={{
-                        height: 500,
+                        height: 600,
                         
                     }}
                 />
             </div>
-            <Outlet />
+            {selectedEvent &&
+                <UserEvents selectedEvent={selectedEvent} userId={userId}
+				events={events}
+				updateEvents={updateEvents}
+				friendEvents={null}
+				friendId={null}/>}
         </div>
     );
 }
