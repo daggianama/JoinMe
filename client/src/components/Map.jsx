@@ -37,7 +37,6 @@ export default function Map({ events, updateEvents, mapClick, userId, friends })
 		}
 	};
 
-	// By default Leaflet only comes with blue markers. We want green too!
 	// https://github.com/pointhi/leaflet-color-markers
 	let greenMarker = new L.icon({
 		iconUrl:
@@ -62,9 +61,9 @@ export default function Map({ events, updateEvents, mapClick, userId, friends })
 	});
 
 	useEffect(() => {
-		(async () => {
-			await updateEvents();
-		})();
+		// (async () => {
+		// 	await updateEvents();
+		// })();
 		// Get the user's current location
 		if ("geolocation" in navigator) {
 			navigator.geolocation.getCurrentPosition(
@@ -157,6 +156,7 @@ export default function Map({ events, updateEvents, mapClick, userId, friends })
 		// const selectedDateTime = selectedDate.setHours(0, 0, 0, 0); // Remove the time from the date
 		return selectedDate;
 	};
+
 
 	return (
 		<div>
@@ -258,7 +258,7 @@ export default function Map({ events, updateEvents, mapClick, userId, friends })
 								
 				</MapContainer>
 			</div>
-			<UserEvents events={events} updateEvents={updateEvents} selectedEvent={selectedEvent} friendEvents={friendEvents} />
+			<UserEvents userId={userId} events={events} updateEvents={updateEvents} selectedEvent={selectedEvent} friendEvents={friendEvents} />
 		</div>
 	);
 }

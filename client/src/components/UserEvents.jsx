@@ -6,11 +6,12 @@ import {
 } from "../utils/interactions";
 
 export default function UserEvents({
+	userId,
 	events,
 	updateEvents,
 	selectedEvent,
-	closeModal,
 	friendEvents,
+	closeModal
 }) {
 	// STATE FOR DRAGGABLE FORM
 	const [position, setPosition] = useState({ x: 100, y: 290 });
@@ -21,17 +22,30 @@ export default function UserEvents({
 	useEffect(() => {
 		(async () => {
 			await updateEvents();
-
 		})();
-	
-	}, []);
 
-	const handleDelete = (id) => {
-		deleteEvent(id).then(updateEvents());
+
+	}, [userId]);
+
+
+	const handleClose = () => {
+		closeModal(false);
 	};
 
+	const handleDelete = async (id) => {
+	
+		console.log("event" + id);
+		await deleteEvent(id);
+		updateEvents();
+		
+		
+	};
+
+
+
 	const deleteEvent = async (id) => {
-		fetch(`/api/events/${id}`, {
+		try {
+		await fetch(`/api/participation/${userId}/${id}`, {
 			method: "DELETE",
 			headers: {
 				"Content-Type": "application/json",
@@ -40,14 +54,16 @@ export default function UserEvents({
 		})
 			// // upon success, update tasks
 			.then((res) => res.json())
-			.then((data) => updateEvents(data))
 			// upon failure, show error message
 			.catch((error) => console.error(error));
+		} catch (error) {
+			console.error(error);
+		}
+		
+
 	};
 
-	const close = () => {
-		closeModal(false);
-	};
+
 
 	return (
 		<div>
@@ -85,7 +101,7 @@ export default function UserEvents({
 							}
 							onMouseUp={() => handleMouseUp(setIsDragging)}
 						>
-							<button className="close" onClick={close}>
+							<button className="close" onClick={handleClose}>
 								{" "}
 								X{" "}
 							</button>

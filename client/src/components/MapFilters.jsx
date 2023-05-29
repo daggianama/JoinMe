@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import Select from 'react-select';
-
+import Select from "react-select";
 
 export default function MapFilters({
 	filterChange,
@@ -9,14 +8,12 @@ export default function MapFilters({
 	setFriendEvents,
 }) {
 	const [selectedFriend, setSelectedFriend] = useState("");
-	useEffect(() => {
-		
-	}, []);
+	useEffect(() => {}, []);
 
-	console.log("friends", friends)
+	console.log("friends", friends);
 
-	const handleSelectFriend = async (e) => {
-		const selectedValue = e.target.value;
+	const handleSelectFriend = async (selectedOption) => {
+		const selectedValue = selectedOption.value;
 		if (selectedValue === selectedFriend) {
 			return;
 		}
@@ -46,14 +43,32 @@ export default function MapFilters({
 		}
 	};
 
-	const friendOptions = 
-
-		friends.map((f) => ({
+	const friendOptions = friends.map((f) => ({
 		value: f.id,
 		label: `${f.firstName} ${f.lastName}`,
-		}))
-	;
-	console.log(friendOptions);
+	}));
+	const CustomStyle = {
+		control: (provided, state) => ({
+			...provided,
+			border: state.isFocused ? "2px solid rgba(176, 202, 72, 0.791)" : "2px solid rgba(176, 202, 72, 0.791)",
+			borderRadius: "18px",
+			height: "2px",
+			fontSize: "12px",
+			padding: "0px 0px 0px 10px",
+
+		}),
+
+		menu: (provided) => ({
+			...provided,
+			borderRadius: "16px",
+		}),
+		option: (provided, state) => ({
+			...provided,
+			backgroundColor: state.isFocused ? "rgba(175, 202, 66, 0.791)" : "white",
+			color: state.isFocused && "black",
+			borderRadius: "10px",
+		}),
+	};
 
 	return (
 		<div className="map-filters">
@@ -64,6 +79,7 @@ export default function MapFilters({
 						type="date"
 						id="eventDate"
 						name="eventDate"
+						style={CustomStyle}
 						value={selectedDate || ""}
 						onChange={filterChange}
 					/>
@@ -72,13 +88,13 @@ export default function MapFilters({
 					<label htmlFor="friend-select">Friend events</label>
 					<Select
 						className="friend-select"
-						 defaultValue={friendOptions[0]}
 						// value={selectedFriend}
 						onChange={handleSelectFriend}
 						options={friendOptions}
+						styles={CustomStyle}
 						// isClearable={true}
 					/>
-				{/* <div className="friends">
+					{/* <div className="friends">
 					<label htmlFor="friend-select">Friend events</label>
 					<Select
 						value={selectedFriend}

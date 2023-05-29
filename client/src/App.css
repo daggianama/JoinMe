@@ -69,7 +69,7 @@ nav li a{
 /* MAP FILTERS ---------------------------------*/
 
 .map-filters {
-  margin: 1.5rem 0 2rem 1rem;
+  margin: 1.5rem 0 1rem 1rem;
   border-radius: 2rem;
   text-align: left;
   max-width: 26rem;
@@ -79,7 +79,7 @@ nav li a{
 }
 
 .filter-markers {
-  height: 4rem;
+  height: 4.4rem;
   padding: 0 2rem;
   display: flex;
   align-items: center;
@@ -88,11 +88,12 @@ nav li a{
 
 }
 
-select, input {
+select, .date input {
   border-radius: 1rem;;
-  background-color: #eaeaea;
-  border: 1px solid #c8c8c89f;
-  padding: .1rem;
+  background-color: #ffffff;
+  border: 1px solid #d9d9d9;
+  padding: .3rem;
+  height: 2.4rem;
 }
 
 .filter-markers label {

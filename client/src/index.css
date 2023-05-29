@@ -9,8 +9,8 @@
 
 :root {
   /* colors */
-  --primary:rgba(223, 105, 68, 0.794);
-  --light-primary: rgba(222, 88, 31, 0.595);
+  --primary:rgba(171, 194, 41, 0.864);
+  --light-primary: rgba(175, 202, 66, 0.791);
   --dark-grey: #rgb(33, 33, 33);
   --background-color: rgba(255, 255, 255, 0.878);
   --white:  rgba(255, 255, 255, 0.878);
@@ -59,7 +59,7 @@ h4 {
 }
 
 
-input:focus, input::selection, select:focus, option{
+input:focus, input::selection, select:focus, textarea::selection {
   outline: 1px solid var(--light-primary);
   margin: 0;
 
@@ -67,12 +67,6 @@ input:focus, input::selection, select:focus, option{
 
 textarea::selection, input::selection, select::selection{
   background-color: var(--light-primary);
-  color: whitesmoke !important;
-}
-
-select option {
-  all: unset;
-  background-color: var(--light-primary);
   color: whitesmoke;
-
 }
+

@@ -42,6 +42,7 @@ router.delete("/:id/:event_id", async (req, res) => {
             `DELETE FROM participation WHERE user_id = ${id} AND event_id = ${event_id};`
         );
         res.send(results.data);
+        console.log(id, event_id);
     } catch (err) {
         res.status(500).send({ error: err.message });
     }
