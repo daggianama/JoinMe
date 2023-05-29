@@ -5,10 +5,12 @@ import { Route, Routes, Link } from "react-router-dom";
 import Home from "./pages/Home";
 import AddEvent from "./components/AddEvent";
 import Profile from "./pages/Profile";
-import Calendar from "./pages/Calendar";
+import Calendar from "./components/Calendar";
+import Invitations from "./pages/Invitations";
 
 function App() {
 	const [selectAddEvent, setSelectAddEvent] = useState(false);
+	const [selectCalendar, setSelectCalendar] = useState(false);
 	const [userEvents, setUserEvents] = useState([]);
 	const [userFriends, setUserFriends] = useState([]);
 	const id = 1;
@@ -75,7 +77,7 @@ function App() {
 							<Link to={`/${id}`}>HOME</Link>
 						</li>
 						<li>
-							<Link to={`/${id}/calendar`}>CALENDAR</Link>
+							<Link to={`/${id}/invitations`}>INVITATIONS</Link>
 						</li>
 					</div>
 					<li>
@@ -93,6 +95,7 @@ function App() {
 							updateEvents={loadUserEvents}
 							mapClick={setSelectAddEvent}
 							friends={userFriends}
+							selectCalendar={setSelectCalendar}
 						/>
 					}
 				>
@@ -107,17 +110,14 @@ function App() {
 								/>
 							)
 						}
-					/>
+					/>	
+
 				</Route>
 				<Route
-					path={`/:userId/calendar`}
-					element={
-						<Calendar
-							events={userEvents}
-							updateEvents={loadUserEvents}
-						/>
-					}
+					path={`/:userId/invitations`}
+					element={<Invitations />}
 				/>
+
 				<Route
 					path={`/:userId/profile`}
 					element={<Profile friends={userFriends} />}

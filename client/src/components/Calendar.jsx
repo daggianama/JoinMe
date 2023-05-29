@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Calendar, dayjsLocalizer } from "react-big-calendar";
 import dayjs from "dayjs";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import UserEvents from "../components/UserEvents";
+import UserEvents from "./UserEvents";
 
 export default function UserCalendar({events, updateEvents}) {
     const { userId } = useParams();
