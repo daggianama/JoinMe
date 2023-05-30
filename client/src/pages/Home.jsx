@@ -1,5 +1,4 @@
 
-import { useEffect, useState } from "react";
 import Map from "../components/Map";
 import { Outlet, useParams } from "react-router-dom";
 import Calendar from "../components/Calendar";
@@ -7,7 +6,6 @@ import Calendar from "../components/Calendar";
 export default function Home({ events, updateEvents, addEvent, friends, selectCalendar }) {
 	const params = useParams();
 	const userId = params.userId;
-
 
 
 	return (

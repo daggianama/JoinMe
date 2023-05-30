@@ -13,7 +13,7 @@ function App() {
 	const [userEvents, setUserEvents] = useState([]);
 	const [userFriends, setUserFriends] = useState([]);
 	const [userName, setUserName] = useState("");
-	const [isLogin, setIsLogin] = useState(false);
+	const [isLogin] = useState(false);
 	const [selectCalendar, setSelectCalendar] = useState(false);
 	const [selectHome, setSelectHome] = useState(false);
 	const id = 1;
@@ -71,7 +71,7 @@ function App() {
 
 	async function loadUserName(id) {
 		try {
-			const res = await fetch(`/api/index/${id}`);
+			const res = await fetch(`/api/users/${id}`);
 			const data = await res.json();
 			
 			setUserName(data.firstName);
