@@ -8,13 +8,6 @@
   - [Dependencies](#dependencies)
   - [Development](#development)
 - [Resources](#resources)
-- [Guide](#guide)
-  - [Preparation](#preparation)
-  - [In class](#in-class)
-    - [Explanation](#explanation)
-    - [Code](#code)
-- [React (frontend) route considerations](#react--frontend--route-considerations)
-
 
 ## Setup
 
@@ -47,10 +40,15 @@
 
 
 ### Development
-
+-Before Dvelopment you must generate your own API  keys for the followings: Google geolocation & Thunderforest map API.
+-Create an .env file inside /client and paste them like this, replacing 'YOURKEY' with corresponding personal APIs key generated:
+VITE_GOOGLE_MAPS_API_KEY=YOURKEY
+VITE_APP_THUNDERFOREST_API_KEY=YOURKEY
+-Don't forget to also add to .gitignore .env.
+Finally!
 - Run `npm start` in project directory to start the Express server on port 4000
 - In another terminal, do `cd client` and run `npm run dev` to start the client in development mode with hot reloading in port 5173.
-- - I use React BigCalendar for the calendar template, it might give some error message regarding its .css file, ignore it.
+( I use React BigCalendar for the calendar template, it might give some error message regarding its .css file, ignore it. )
 
 ## Resources 
 
