@@ -154,7 +154,7 @@ function App() {
 
 				<Route
 					path={`/:userId/profile`}
-					element={<Profile friends={userFriends} userName={userName} />}
+					element={<Profile friends={userFriends} userName={userName} events={userEvents} />}
 				/>
 			</Routes>
 		</div>
