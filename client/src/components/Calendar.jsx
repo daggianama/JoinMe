@@ -69,7 +69,7 @@ export default function UserCalendar({events, updateEvents}) {
 				events={events}
 				updateEvents={updateEvents}
 				friendEvents={null}
-				friendId={null}/>}
+				friendName={null}/>}
         </div>
     );
 }

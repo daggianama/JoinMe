@@ -11,17 +11,28 @@ export default function UserEvents({
 	updateEvents,
 	selectedEvent,
 	friendEvents,
-	closeModal
+	closeModal,
+	friendName
 }) {
 	// STATE FOR DRAGGABLE FORM
 	const [position, setPosition] = useState({ x: 100, y: 290 });
 	const [isDragging, setIsDragging] = useState(false);
 	const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
 	const userEventIds = events.map((e) => e.id);
+	const friendEventIds = events.map((e) => e.id);
+	
+
+	useEffect(() => {
+		console.log(friendEventIds)
+		// console.log(userEventIds)
+		
+
+	}, []);
 
 	const handleClose = () => {
 		closeModal(false);
 	};
+
 
 
 	const handleDelete = async (id) => {
@@ -55,7 +66,6 @@ export default function UserEvents({
 			updateEvents();
 			handleClose();
 		};
-	
 
 
 
@@ -86,6 +96,7 @@ export default function UserEvents({
 	return (
 		<div>
 			<h3></h3>
+			
 			
 			{userEventIds.includes(selectedEvent) && events.map(
 				(e, i) =>
@@ -130,6 +141,10 @@ export default function UserEvents({
 							><i className="fa fa-face-frown"></i>
 								<p></p>Not going 
 							</button>
+							{friendEventIds.includes(selectedEvent) && 
+								<h5>🎉 {friendName} & you are going</h5>
+							}
+								
 							<div className="event-text">
 								<h4>{e.eventTitle}</h4>
 								<p><span>Location </span>{e.eventLocation}</p>

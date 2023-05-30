@@ -6,13 +6,13 @@ export default function MapFilters({
 	selectedDate,
 	friends,
 	setFriendEvents,
-	setFriendId,
+	setFriendName,
 }) {
 	const [selectedFriend, setSelectedFriend] = useState("");
 
 	useEffect(() => {
 		console.log("friends", friends);
-	}, [friends]);
+	}, []);
 
 	
 
@@ -22,10 +22,10 @@ export default function MapFilters({
 			setFriendEvents([]);
 			setSelectedFriend(null);
 			return;
-		 }
+		}
 		
 		const selectedValue = selectedOption.value;
-		setFriendId(selectedValue);
+		friends.map((f) => { if (f.id === selectedValue) setFriendName(`${f.firstName}`) });
 		if (selectedValue === selectedFriend) {
 			return;
 		}
@@ -100,7 +100,7 @@ export default function MapFilters({
 					<label htmlFor="friend-select">Friend events</label>
 					<Select
 						className="friend-select"
-						// value={selectedFriend}
+						
 						onChange={handleSelectFriend}
 						options={friendOptions}
 						styles={CustomStyle}

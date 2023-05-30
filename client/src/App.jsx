@@ -12,6 +12,9 @@ function App() {
 	const [userEvents, setUserEvents] = useState([]);
 	const [userFriends, setUserFriends] = useState([]);
 	const [userName, setUserName] = useState("");
+	const [isLogin, setIsLogin] = useState(false);
+	const [selectCalendar, setSelectCalendar] = useState(false);
+	const [selectHome, setSelectHome] = useState(false);
 	const id = 1;
 
 	useEffect(() => {
@@ -19,7 +22,7 @@ function App() {
 		loadUserFriends();
 		loadUserName(id);
 		console.log(userName);
-	}, [selectAddEvent]);
+	}, [selectAddEvent, isLogin]);
 
 	async function loadUserEvents() {
 		try {
@@ -77,15 +80,13 @@ function App() {
 	}
 
 
-
-
 	return (
 		<div className="App">
 			<nav>
 				<ul>
 					<div className="home-calendar">
 						<li>
-							<Link to={`/${id}`}>HOME</Link>
+							<Link to={`/${id}`} onMouseOver={() => setSelectHome(true)} onClick={() => setSelectHome(!selectHome)}>HOME</Link>
 						</li>
 						<li>
 							<Link to={`/${id}/invitations`}>INVITATIONS</Link>
@@ -96,6 +97,22 @@ function App() {
 					</li>
 				</ul>
 			</nav>
+			{selectHome === true  &&
+			<div className="calendar-map" onClick={() =>setSelectHome(false)}>
+			
+				<button onClick={() => setSelectCalendar(false)} className={!selectCalendar ? "selected" : null}>
+					Map</button>
+					<button onClick={() => setSelectCalendar(true)} className={selectCalendar ? "selected" : null} >
+				Calendar</button>
+			</div>}
+			
+			{isLogin === false && 
+			<div className="fake-login">
+				fake login :) <br />
+				<button className="login" onClick={() => setIsLogin(true)}>
+					<Link to={`/${id}`}>LOG IN</Link>
+				</button>
+			</div>}
 
 			<Routes>
 				<Route
@@ -106,6 +123,7 @@ function App() {
 							updateEvents={loadUserEvents}
 							addEvent={setSelectAddEvent}
 							friends={userFriends}
+							selectCalendar={selectCalendar}
 					
 						/>
 					}

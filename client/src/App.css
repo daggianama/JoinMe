@@ -61,39 +61,37 @@ nav li a{
 
 /* HOME PAGE ---------------------------------*/
 
-.calendar-map {
+.App .calendar-map {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  gap: 6px;
-  margin: 0 auto;
-  min-width: 10rem;
-  max-width: 11.3rem;
+  gap: 2px;
+  margin: 10px 1.8rem;
+  width: 12rem;
   height: 2.7rem;
   box-shadow: var( --shadow);
   border-radius: 2rem; 
-  padding: 0 12px;
+  padding: 2px 6px;
+  position: absolute;
 }
 
-.calendar-map button {
+.App .calendar-map button {
   all: unset;
   font-weight: 400;
   color: var(--dark-grey);
-  
    border-radius: 2rem; 
   padding: 0 .9rem;
   height: 80%;
   
 }
 
-.calendar-map button:hover {
+.App .calendar-map button:hover {
   cursor: pointer;
-
 }
 
-.calendar-map .selected {
+.App .calendar-map .selected {
   box-shadow: var( --shadow-focus);
-  background-color: #ffffff72;
+  background-color: #ffffff8b;
 
 }
 
@@ -152,26 +150,30 @@ button .fas {
   margin: 0 0 14px 0;
   border-radius: 2.2rem;
   text-align: left;
-  width: 30vw;
-  min-width: 20rem;
+  width: 28vw;
+  min-width: 24rem;
   box-shadow: var( --shadow);
- 
 }
 
 .filter-markers {
-  height: 4.3rem;
-  padding: 0 1rem;
+  height: 4.2rem;
+  padding: 5px 0 0 0;
   display: flex;
-  align-items: center;
-  justify-content: space-around;
+  align-items: top;
+  justify-content: center;
+  gap: 12px;
 }
 
 select, .date input {
-  border-radius: 1rem;;
+  border-radius: 1.2rem;;
   background-color: #ffffff;
   border: 1px solid #d9d9d9;
   padding: .3rem;
   height: 2.4rem;
+}
+
+select, .friends {
+  width: 10rem;
 }
 
 .filter-markers label {
@@ -181,8 +183,7 @@ select, .date input {
 .filter-markers .date, .friends {
   display: flex;
   flex-direction: column;
-  height: 80%;
-  padding: 0 4px;
+
 }
 
 .friend-select {

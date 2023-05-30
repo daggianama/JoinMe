@@ -9,6 +9,7 @@ import {
 	handleMouseMove,
 	handleMouseUp,
 } from "../utils/interactions";
+const googleKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
 export default function AddEvent({
 	updateEvents,
@@ -29,12 +30,14 @@ export default function AddEvent({
 		public: false,
 	});
 
+
 	// STATE FOR DRAGGABLE FORM
 	const [position, setPosition] = useState({ x: 880, y: 160 });
 	const [isDragging, setIsDragging] = useState(false);
 	const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
 
 	useEffect(() => {
+
 		if ("geolocation" in navigator) {
 			navigator.geolocation.getCurrentPosition(
 				(position) => {
@@ -62,7 +65,7 @@ export default function AddEvent({
 
 	const getSuggestionsByLocation = async (latitude, longitude) => {
 		const response = await fetch(
-			`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyCKera2QzXqnNwAKgCPcexnVFwwt_WIXu8`
+			`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${googleKey}`
 		);
 		const data = await response.json();
 		data.results.map((result) => result.formatted_address);

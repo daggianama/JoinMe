@@ -11,6 +11,8 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MapFilters from "./MapFilters";
 import UserEvents from "./UserEvents";
+const apiKey = import.meta.env.VITE_APP_THUNDERFOREST_API_KEY;
+
 
 export default function Map({
 	events,
@@ -20,17 +22,18 @@ export default function Map({
 	friends,
 }) {
 	const [center, setCenter] = useState([41.4091528, 2.1924869]);
-	const [markers, setMarkers] = useState([]);
+	const [markers] = useState([]);
 	const [selectedPosition, setSelectedPosition] = useState(["", ""]);
 	const [hoveredMarker, setHoveredMarker] = useState(null);
 	const [selectedDate, setSelectedDate] = useState(null);
 	const [selectedEvent, setSelectedEvent] = useState(null);
-	const [friendId, setFriendId] = useState(null);
+	const [friendName, setFriendName] = useState(null);
 	const navigate = useNavigate();
 	const mapRef = useRef();
 	const markerRefs = useRef({});
 	const [friendEvents, setFriendEvents] = useState([]);
-	const apikey = "93f3b807324f458ea74a579cb8a1d723";
+	const thunderForest = `https://{s}.tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=${apiKey}`;
+	
 
 	const handleMarkerHover = (markerId) => {
 		setHoveredMarker(markerId);
@@ -67,6 +70,7 @@ export default function Map({
 		shadowSize: [30, 34],
 	});
 	useEffect(() => {
+	
 		if ("geolocation" in navigator) {
 			navigator.geolocation.getCurrentPosition(
 				(position) => {
@@ -186,7 +190,7 @@ export default function Map({
 				userId={userId}
 				friends={friends}
 				setFriendEvents={setFriendEvents}
-				setFriendId={setFriendId}
+				setFriendName={setFriendName}
 				/>
 				<button onClick={() => handleAddeventButton(event)}>
 				<i className="fas fa-plus"></i>
@@ -209,7 +213,7 @@ export default function Map({
 					<OnClickMarkers />
 
 					<TileLayer
-						url={`https://{s}.tile.thunderforest.com/atlas/{z}/{x}/{y}.png?apikey=${apikey}`}
+						url={thunderForest}
 					/>
 
 					<Marker position={center} icon={greenMarker}>
@@ -290,7 +294,7 @@ export default function Map({
 				updateEvents={updateEvents}
 				selectedEvent={selectedEvent}
 				friendEvents={friendEvents}
-				friendId={friendId}
+				friendName={friendName}
 		
 			/>
 		</div>
