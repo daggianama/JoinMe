@@ -42,7 +42,8 @@
 - If needed make test on postman to understand them better :).
 -  In your MySQL console, you can run `use mvpData;` and then `describe events;` to see the structure of the events table, you can do it with all the tables.
 
-#### My database model design
+
+![My database model design](./assets/mvp-data_model.png)
 
 
 ### Development
@@ -57,7 +58,7 @@
 https://github.com/jquense/react-big-calendar
 
 ### maps
-[www.](https://leafletjs.com/)
+https://www.leafletjs.com/)
 https://www.tutorialspoint.com/leafletjs/leafletjs_markers.htm
 https://www.thunderforest.com/
 
