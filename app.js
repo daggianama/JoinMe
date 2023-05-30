@@ -4,10 +4,11 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var usersRouter = require('../routes/users');
+
 var eventsRouter = require('./routes/events');
 var friendsRouter = require('./routes/friends');
 var participationRouter = require('./routes/participation');
+var usersRouter = require('./routes/users');
 
 var app = express();
 
@@ -21,10 +22,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-app.use('/api/users', usersRouter);
+
 app.use('/api/events', eventsRouter);
 app.use('/api/friends', friendsRouter);
 app.use('/api/participation', participationRouter);
+app.use('/api/users', usersRouter);
 
 
 module.exports = app;
