@@ -31,8 +31,6 @@ router.get("/:id", async (req, res) => {
 
 
 
-
-
 // POST a new event to the database done by user
 router.post("/:id", async (req, res) => {
 	let { eventTitle, eventLocation, eventDate, eventStartTime, latitude, longitude, category, public } =

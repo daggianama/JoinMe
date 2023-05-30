@@ -11,11 +11,14 @@ function App() {
 	const [selectAddEvent, setSelectAddEvent] = useState(false);
 	const [userEvents, setUserEvents] = useState([]);
 	const [userFriends, setUserFriends] = useState([]);
+	const [userName, setUserName] = useState("");
 	const id = 1;
 
 	useEffect(() => {
 		loadUserEvents();
 		loadUserFriends();
+		loadUserName(id);
+		console.log(userName);
 	}, [selectAddEvent]);
 
 	async function loadUserEvents() {
@@ -61,6 +64,18 @@ function App() {
 			console.error(error);
 		}
 	}
+
+	async function loadUserName(id) {
+		try {
+			const res = await fetch(`/api/index/${id}`);
+			const data = await res.json();
+			
+			setUserName(data.firstName);
+		} catch (error) {
+			console.error(error);
+		}
+	}
+
 
 
 
@@ -117,7 +132,7 @@ function App() {
 
 				<Route
 					path={`/:userId/profile`}
-					element={<Profile friends={userFriends} />}
+					element={<Profile friends={userFriends} userName={userName} />}
 				/>
 			</Routes>
 		</div>

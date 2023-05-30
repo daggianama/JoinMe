@@ -1,12 +1,12 @@
 
 
-export default function Profile({ friends}) {
+export default function Profile({ friends, userName}) {
 
 
 
 	return (
         <div>
-            <h1>Profile</h1>
+            <h1>Hello {userName}</h1>
             <div className="div user-friends">
                 <h3>Friends</h3>
                 <ul>
