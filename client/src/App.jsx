@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import AddEvent from "./components/AddEvent";
 import Profile from "./pages/Profile";
 import Invitations from "./pages/Invitations";
+import JOINmelogo from "./assets/logo.png";
 
 function App() {
 	const [selectAddEvent, setSelectAddEvent] = useState(false);
@@ -22,7 +23,7 @@ function App() {
 		loadUserFriends();
 		loadUserName(id);
 		console.log(userName);
-	}, [selectAddEvent, isLogin]);
+	}, [isLogin]);
 
 	async function loadUserEvents() {
 		try {
@@ -82,6 +83,9 @@ function App() {
 
 	return (
 		<div className="App">
+			<div className="logo" >
+				<img src={JOINmelogo} alt="joinmelogo" />
+				</div>
 			<nav>
 				<ul>
 					<div className="home-calendar">
@@ -106,13 +110,13 @@ function App() {
 				Calendar</button>
 			</div>}
 			
-			{isLogin === false && 
+			{/* {isLogin === false && 
 			<div className="fake-login">
 				fake login :) <br />
 				<button className="login" onClick={() => setIsLogin(true)}>
 					<Link to={`/${id}`}>LOG IN</Link>
 				</button>
-			</div>}
+			</div>} */}
 
 			<Routes>
 				<Route

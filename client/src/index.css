@@ -9,8 +9,8 @@
 
 :root {
   /* colors */
-  --primary:rgba(171, 194, 41, 0.864);
-  --light-primary: rgba(175, 202, 66, 0.791);
+  --primary:rgba(71, 68, 238, 0.777);
+  --light-primary: rgba(120, 128, 247, 0.749);
   --dark-grey: #rgb(33, 33, 33);
   --white:  rgba(255, 255, 255, 0.878);
   --light-red: #ef536aa1;

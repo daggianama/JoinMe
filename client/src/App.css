@@ -17,6 +17,23 @@
   max-width: 80rem;
 }
 
+.App .logo {
+
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin: 0 auto;
+}
+
+.App .logo img {
+  max-width: 6rem;
+  height: auto;
+  position: absolute;
+  top: 1.6rem;
+  left: 38vw;
+
+}
+
 /* NAVIGATION ---------------------------------*/
 
 nav ul{
@@ -150,8 +167,8 @@ button .fas {
   margin: 0 0 14px 0;
   border-radius: 2.2rem;
   text-align: left;
-  width: 28vw;
-  min-width: 24rem;
+  min-width: 23rem;
+  max-width: 30rem;
   box-shadow: var( --shadow);
 }
 
@@ -204,6 +221,12 @@ select, .friends {
     z-index: 1000;
     border-radius: 2rem;
 }
+.event-card h3 {
+  font-size: 1rem;
+  font-weight: 500;
+  justify-self: center;
+  color: var(--primary);
+}
 
 .event-text {
   display: flex;
@@ -235,16 +258,16 @@ select, .friends {
   display: flex;
   align-items: center;
   padding: 0;
-  margin: 14px 0 22px 0;
+  margin: 22px 0 8px 0;
   background-color: white;
   border: 1px solid var(--light-red);
   color:var(--light-red);
   cursor: pointer;
-  width: 6.2rem;
+  width: 6rem;
   border-radius: 16px;
   font-size: small;
   font-weight: 400;
-  gap: 14px;
+  gap: 5px;
 }
 
 .event-card .delete:hover {
@@ -253,7 +276,7 @@ select, .friends {
 }
 
 .delete i{
-  color:white;
+  color:rgb(255, 255, 255);
   width: 1%;
 }
 

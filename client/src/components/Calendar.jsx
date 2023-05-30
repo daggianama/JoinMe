@@ -58,7 +58,7 @@ export default function UserCalendar({events, updateEvents}) {
                     startAccessor="start"
                     endAccessor="end"
                     style={{
-                        height: 520,
+                        height: 580,
                         backgroundColor: "white",
                         
                     }}

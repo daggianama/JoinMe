@@ -62,7 +62,7 @@ export default function MapFilters({
 	const CustomStyle = {
 		control: (provided, state) => ({
 			...provided,
-			border: state.isFocused ? "2px solid rgba(176, 202, 72, 0.791)" : "2px solid rgba(176, 202, 72, 0.791)",
+			border: state.isFocused ? "2px solid rgba(71, 68, 238, 0.777)" : "2px solid rgba(120, 128, 247, 0.749)",
 			borderRadius: "18px",
 			height: "2px",
 			fontSize: "12px",
@@ -76,8 +76,8 @@ export default function MapFilters({
 		}),
 		option: (provided, state) => ({
 			...provided,
-			backgroundColor: state.isFocused ? "rgba(175, 202, 66, 0.791)" : "white",
-			color: state.isFocused && "black",
+			backgroundColor: state.isFocused ? "rgba(120, 128, 247, 0.749)" : "white",
+			color: state.isFocused && "white",
 			borderRadius: "10px",
 		}),
 	};

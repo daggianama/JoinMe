@@ -87,17 +87,12 @@ export default function UserEvents({
 		} catch (error) {
 			console.error(error);
 		}
-		
-
 	};
-
 
 
 	return (
 		<div>
-			<h3></h3>
-			
-			
+
 			{userEventIds.includes(selectedEvent) && events.map(
 				(e, i) =>
 					!selectedEvent ||
@@ -134,15 +129,9 @@ export default function UserEvents({
 								{" "}
 								X{" "}
 							</button>
-							<button
-								className="delete"
-								type="button"
-								onClick={() => handleDelete(e.id)}
-							><i className="fa fa-face-frown"></i>
-								<p></p>Not going 
-							</button>
-							{friendEventIds.includes(selectedEvent) && 
-								<h5>🎉 {friendName} & you are going</h5>
+							
+							{friendEventIds.includes(selectedEvent) && friendName ?
+								<h3>🎉 You are going too!</h3> : null
 							}
 								
 							<div className="event-text">
@@ -151,6 +140,13 @@ export default function UserEvents({
 								<p><span>Date </span> {e.eventDate}</p>
 								<p><span>Time </span> {e.eventStartTime}</p>
 							</div>
+							<button
+								className="delete"
+								type="button"
+								onClick={() => handleDelete(e.id)}
+							><p></p>Not going <i className="fa fa-face-frown"></i>
+								
+							</button>
 						
 						</form>
 					))
