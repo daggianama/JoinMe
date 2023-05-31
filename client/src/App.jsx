@@ -100,7 +100,6 @@ function App() {
 		setSelectHome(true);
 		setSelectCalendar(false);
 		setJoinFriend(false);
-
 	}
 
 
