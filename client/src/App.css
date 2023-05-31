@@ -429,11 +429,18 @@ label {
 /* JOIN FRIENDS------------------------------------------------*/
 
 .join-friends-events {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
   gap: 1rem;
   margin-top: 4rem;
 }
+
+.join-friends-events div {
+ height: 32rem;
+ margin-bottom: 2rem;
+}
+
 
 
 /* PROFILE ------------------------------------------------*/
