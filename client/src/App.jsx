@@ -16,6 +16,7 @@ function App() {
 	const [isLogin] = useState(false);
 	const [selectCalendar, setSelectCalendar] = useState(false);
 	const [selectHome, setSelectHome] = useState(false);
+	const [joinFriend, setJoinFriend] = useState(false);
 	const id = 1;
 
 	useEffect(() => {
@@ -80,6 +81,29 @@ function App() {
 		}
 	}
 
+	const handleJoinFriends = () => {
+		setSelectCalendar(false);
+		setJoinFriend(true);
+	}
+
+	const handleSelectCalendar = () => {
+		setSelectCalendar(true);
+		setJoinFriend(false);
+	}
+
+	const handleSelectMap = () => {
+		setSelectCalendar(false);
+		setJoinFriend(false);
+	}
+
+	const handleSelectHome = () => {
+		setSelectHome(true);
+		setSelectCalendar(false);
+		setJoinFriend(false);
+
+	}
+
+
 
 	return (
 		<div className="App">
@@ -90,7 +114,7 @@ function App() {
 				<ul>
 					<div className="home-calendar">
 						<li>
-							<Link to={`/${id}`} onMouseOver={() => setSelectHome(true)} onClick={() => setSelectHome(!selectHome)}>HOME</Link>
+							<Link to={`/${id}`} onMouseOver={() => setSelectHome(true)} onClick={handleSelectHome}>HOME</Link>
 						</li>
 						<li>
 							<Link to={`/${id}/invitations`}>INVITATIONS</Link>
@@ -104,10 +128,13 @@ function App() {
 			{selectHome === true  &&
 			<div className="calendar-map" onClick={() =>setSelectHome(false)}>
 			
-				<button onClick={() => setSelectCalendar(false)} className={!selectCalendar ? "selected" : null}>
+				<button onClick={handleSelectMap} className={!selectCalendar && !joinFriend ? "selected" : null}>
 					Map</button>
-					<button onClick={() => setSelectCalendar(true)} className={selectCalendar ? "selected" : null} >
-				Calendar</button>
+					<button onClick={handleSelectCalendar} className={selectCalendar && !joinFriend ? "selected" : null} >
+						Calendar</button>
+						<button onClick={handleJoinFriends} className={!selectCalendar && joinFriend ? "selected" : null} >
+						Join Friends</button>
+					
 			</div>}
 			
 			{/* {isLogin === false && 
@@ -128,7 +155,8 @@ function App() {
 							addEvent={setSelectAddEvent}
 							friends={userFriends}
 							selectCalendar={selectCalendar}
-					
+							joinFriend={joinFriend}
+							selectHome={selectHome}
 						/>
 					}
 				>
@@ -157,6 +185,7 @@ function App() {
 					element={<Profile friends={userFriends} userName={userName} events={userEvents} />}
 				/>
 			</Routes>
+
 		</div>
 	);
 }

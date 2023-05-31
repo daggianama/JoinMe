@@ -84,7 +84,7 @@ nav li a{
   justify-content: space-around;
   gap: 2px;
   margin: 10px 1.8rem;
-  width: 12rem;
+  width: 22rem;
   height: 2.7rem;
   box-shadow: var( --shadow);
   border-radius: 2rem; 
@@ -104,11 +104,12 @@ nav li a{
 
 .App .calendar-map button:hover {
   cursor: pointer;
+  background-color: #fffffff8;
 }
 
 .App .calendar-map .selected {
   box-shadow: var( --shadow-focus);
-  background-color: #ffffff8b;
+  background-color: #ffffffb6;
 
 }
 
@@ -422,6 +423,16 @@ label {
 
 .rbc-toolbar button:active, button.rbc-active{
   background-color: var(--light-primary);
+}
+
+
+/* JOIN FRIENDS------------------------------------------------*/
+
+.join-friends-events {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 4rem;
 }
 
 
