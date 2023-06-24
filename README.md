@@ -67,7 +67,7 @@ VITE_APP_THUNDERFOREST_API_KEY=YOURKEY
 ## Screenshoots
 
 ![Web main page](./assets/Screenshot_Web.png)
-![Tablet main page](./assets/Screenshot_tablet.png)
+![Tablet main page](./assets/Screenshot _tablet.png)
 
 ## Resources 
 
