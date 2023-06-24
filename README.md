@@ -17,8 +17,6 @@ Includes a map for automatic user localization and visibility of nearby events, 
   - [Dependencies](#dependencies)
   - [Development](#development)
 - [Screenshoots](#screenshoots)
-  - [Web](#web)
-  - [Mobile](#mobile)
 - [Resources](#resources)
 
 ## Setup
@@ -65,6 +63,11 @@ VITE_APP_THUNDERFOREST_API_KEY=YOURKEY
 - Run `npm start` in the project directory to start the Express server on port 4000
 - In another terminal, do `cd client` and run `npm run dev` to start the client in development mode with hot reloading in port 5173.
 ( I use React BigCalendar for the calendar template, it might give some error message regarding its .css file, ignore it. )
+
+## Screenshoots
+
+![Web main page](./assets/Screenshot_Web.png)
+![Tablet main page](./assets/Screenshot_tablet.png)
 
 ## Resources 
 
