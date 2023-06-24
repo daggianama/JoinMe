@@ -1,5 +1,14 @@
 
-# My MVP App 
+# JoinMe 
+
+This is an MVP MERN stack project, a part of CodeOp's Full Stack Development Training.
+Utilizes CRUD operations and graph database modeling.
+
+## What is it for?
+
+Built for organizing, visualizing, and joining friends events and activities.
+Includes a map for automatic user localization and visibility of nearby events, along with a synchronized calendar for event saving.
+
 
 ## Table of contents
 
