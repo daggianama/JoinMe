@@ -202,8 +202,9 @@ export default function Map({
 					center={center}
 					zoom={15}
 					style={{
-						height: "34vw",
-						width: "100% ",
+						
+						width: "100%",
+						height: "70vh",
 					}} // you MUST specify map height, else it will be 0!
 					eventHandlers={{
 						onClick: OnClickMarkers,

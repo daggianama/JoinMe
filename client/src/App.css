@@ -1,5 +1,4 @@
 
-
 .App {
   color: #434649;
   text-align: center;
@@ -17,26 +16,10 @@
   max-width: 80rem;
 }
 
-.App .logo {
-
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  margin: 0 auto;
-}
-
-.App .logo img {
-  max-width: 6rem;
-  height: auto;
-  position: absolute;
-  top: 1.6rem;
-  left: 38vw;
-
-}
 
 /* NAVIGATION ---------------------------------*/
 
-nav ul{
+nav ul {
   list-style: none;
   display: flex;
   justify-content: space-between;
@@ -47,27 +30,25 @@ nav ul{
 nav .home-calendar {
   display: flex;
   gap: 1rem;
-
 }
 
 nav li {
-  box-shadow: var( --shadow);
+  box-shadow: var(--shadow);
   border-radius: 2rem;
   padding: 5px 1.5rem;
 }
 
 nav li:hover {
   cursor: pointer;
-  box-shadow: var( --shadow-focus);
+  box-shadow: var(--shadow-focus);
   background-color: rgba(255, 255, 255, 0.889);
 }
 
-nav li a{
-  color:var(--dark-grey);
+nav li a {
+  color: var(--dark-grey);
   font-size: 1.1rem;
   font-weight: 400;
-} 
-
+}
 
 .profile-icon {
   font-size: 1.2rem;
@@ -75,7 +56,17 @@ nav li a{
   margin-right: 1rem;
 }
 
+.App .logo {
+  padding-right: 9%;
 
+}
+
+.App .logo img {
+  min-width: 4.5rem;
+  max-width: 4vw;
+  height: auto;
+  
+}
 /* HOME PAGE ---------------------------------*/
 
 .App .calendar-map {
@@ -118,6 +109,11 @@ nav li a{
 
 .map {
   z-index: 1;
+}
+
+.marker-map {
+
+  height: 50vh;
 }
 
 .pop-event h5 {
@@ -476,6 +472,7 @@ label {
   margin: 0;
   padding: 0;
 }
+
 .data-numbers .friends-nr .friends-list {
   width: 100%;
   display: flex;
@@ -515,5 +512,27 @@ label {
   width: 11%;
   align-self: center;
   border-radius: 1.5rem;
+}
+
+
+
+
+
+/* MOBILE sizes */
+
+@media (max-width: 700px) {
+
+  h3 {
+    font-size: 1rem;
+  }
+
+  .close {
+    top: 2rem;
+    right: 2rem;
+    font-size: 1rem;
+  }
+  nav {
+    display: none;
+  }
 }
 

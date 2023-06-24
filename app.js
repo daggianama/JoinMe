@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const bodyParser = require('body-parser');
 
 
 var eventsRouter = require('./routes/events');
@@ -20,6 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json({ limit: '50mb' }));
 
 
 

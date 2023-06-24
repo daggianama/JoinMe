@@ -44,7 +44,8 @@ function App() {
 		try {
 			if (!data) {
 				console.error("Data is undefined");
-				return; }
+				return;
+			}
 			const eventPromises = await data.map(async (event) => {
 				const res = await fetch(`/api/events/${event.event_id}`);
 				const eventData = await res.json();
@@ -58,7 +59,6 @@ function App() {
 			console.error(error);
 		}
 	};
-
 
 	async function loadUserFriends() {
 		try {
@@ -74,7 +74,7 @@ function App() {
 		try {
 			const res = await fetch(`/api/users/${id}`);
 			const data = await res.json();
-			
+
 			setUserName(data.firstName);
 		} catch (error) {
 			console.error(error);
@@ -84,58 +84,85 @@ function App() {
 	const handleJoinFriends = () => {
 		setSelectCalendar(false);
 		setJoinFriend(true);
-	}
+		setSelectHome(false);
+	};
 
 	const handleSelectCalendar = () => {
 		setSelectCalendar(true);
 		setJoinFriend(false);
-	}
+		setSelectHome(false);
+	};
 
 	const handleSelectMap = () => {
 		setSelectCalendar(false);
 		setJoinFriend(false);
-	}
+		setSelectHome(false);
+	};
 
 	const handleSelectHome = () => {
 		setSelectHome(true);
 		setSelectCalendar(false);
 		setJoinFriend(false);
-	}
-
-
+	};
 
 	return (
 		<div className="App">
-			<div className="logo" >
-				<img src={JOINmelogo} alt="joinmelogo" />
-				</div>
 			<nav>
 				<ul>
 					<div className="home-calendar">
 						<li>
-							<Link to={`/${id}`} onMouseOver={() => setSelectHome(true)} onClick={handleSelectHome}>HOME</Link>
+							<Link
+								to={`/${id}`}
+								onMouseOver={() => setSelectHome(true)}
+								onClick={handleSelectHome}
+							>
+								HOME
+							</Link>
 						</li>
 						<li>
 							<Link to={`/${id}/invitations`}>INVITATIONS</Link>
 						</li>
+					</div>
+					<div className="logo">
+						<img src={JOINmelogo} alt="joinmelogo" />
 					</div>
 					<li>
 						<Link to={`/${id}/profile`}>PROFILE</Link>
 					</li>
 				</ul>
 			</nav>
-			{selectHome === true  &&
-			<div className="calendar-map" onClick={() =>setSelectHome(false)}>
-			
-				<button onClick={handleSelectMap} className={!selectCalendar && !joinFriend ? "selected" : null}>
-					Map</button>
-					<button onClick={handleSelectCalendar} className={selectCalendar && !joinFriend ? "selected" : null} >
-						Calendar</button>
-						<button onClick={handleJoinFriends} className={!selectCalendar && joinFriend ? "selected" : null} >
-						Join Friends</button>
-					
-			</div>}
-			
+			{selectHome === true && (
+				<div
+					className="calendar-map"
+					onClick={() => setSelectHome(false)}
+				>
+					<button
+						onClick={handleSelectMap}
+						className={
+							!selectCalendar && !joinFriend ? "selected" : null
+						}
+					>
+						Map
+					</button>
+					<button
+						onClick={handleSelectCalendar}
+						className={
+							selectCalendar && !joinFriend ? "selected" : null
+						}
+					>
+						Calendar
+					</button>
+					<button
+						onClick={handleJoinFriends}
+						className={
+							!selectCalendar && joinFriend ? "selected" : null
+						}
+					>
+						Join Friends
+					</button>
+				</div>
+			)}
+
 			{/* {isLogin === false && 
 			<div className="fake-login">
 				fake login :) <br />
@@ -171,8 +198,7 @@ function App() {
 								/>
 							)
 						}
-					/>	
-
+					/>
 				</Route>
 				<Route
 					path={`/:userId/invitations`}
@@ -181,10 +207,15 @@ function App() {
 
 				<Route
 					path={`/:userId/profile`}
-					element={<Profile friends={userFriends} userName={userName} events={userEvents} />}
+					element={
+						<Profile
+							friends={userFriends}
+							userName={userName}
+							events={userEvents}
+						/>
+					}
 				/>
 			</Routes>
-
 		</div>
 	);
 }

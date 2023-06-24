@@ -7,6 +7,7 @@
 @import url('https://fonts.googleapis.com/css?family=Inter:400,700&display=swap');
 
 
+
 :root {
   /* colors */
   --primary:rgba(71, 68, 238, 0.777);
@@ -34,10 +35,11 @@
   -webkit-text-size-adjust: 100%;
   box-sizing: border-box;
   font-family: Inter,  sans-serif ;
+  
 }
 
 body {
-  background-color: #f6f5f5b4;
+  background-color: #f7f7f7e5;
   margin: 0 auto;
 }
 
@@ -72,4 +74,5 @@ textarea::selection, input::selection, select::selection{
   background-color: var(--light-primary);
   color: whitesmoke;
 }
+
 
